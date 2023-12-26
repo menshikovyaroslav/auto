@@ -1,11 +1,11 @@
-﻿using IntroductionIntoASPmvc.Areas.Admin.Services;
+﻿using Front.Areas.Admin.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace IntroductionIntoASPmvc.Controllers
+namespace Front.Controllers
 {
 	public class AccountController : Controller
 	{
@@ -66,7 +66,7 @@ namespace IntroductionIntoASPmvc.Controllers
                 return RedirectToAction("BadAuth");
             }
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Email), new Claim("Role", user.Role) };
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Email), new Claim("Role", user.Role.ToString()) };
             ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));

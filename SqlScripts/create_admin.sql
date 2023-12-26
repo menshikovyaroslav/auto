@@ -1,0 +1,1 @@
+﻿insert into dbo.Users ("Name", "Email", "Password", "Role") values ('Yaroslav', 'admin@admin.ru', '111', 2);

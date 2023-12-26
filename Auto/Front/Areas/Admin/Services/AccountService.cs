@@ -1,7 +1,7 @@
-﻿using IntroductionIntoASPmvc.Areas.Admin.Models;
+﻿using Front.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace IntroductionIntoASPmvc.Areas.Admin.Services
+namespace Front.Areas.Admin.Services
 {
     public class AccountService : IAccountService
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IntroductionIntoASPmvc.Views.Home
+namespace Front.Views.Home
 {
     public class LoginModel : PageModel
     {

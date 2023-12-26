@@ -1,10 +1,11 @@
-using IntroductionIntoASPmvc.Areas.Admin.Controllers;
-using IntroductionIntoASPmvc.Areas.Admin.Models;
-using IntroductionIntoASPmvc.Areas.Admin.Services;
+using Front.Areas.Admin.Controllers;
+using Front.Areas.Admin.Models;
+using Front.Areas.Admin.Services;
+using Front.Classes;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
-namespace IntroductionIntoASPmvc
+namespace Front
 {
 	public class Program
 	{
@@ -29,7 +30,7 @@ namespace IntroductionIntoASPmvc
 			{
 				o.AddPolicy("AdminArea", policy =>
 				{
-					policy.RequireClaim("Role", "Admin");
+					policy.RequireClaim("Role", Role.Admin.ToString());
 				});
 			});
 

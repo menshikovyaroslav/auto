@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Front.Classes;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntroductionIntoASPmvc.Areas.Admin.Models
+namespace Front.Areas.Admin.Models
 {
     [Table("Users")]
     public class User
@@ -11,6 +12,6 @@ namespace IntroductionIntoASPmvc.Areas.Admin.Models
 		public string? Name { get; set; }
 		public string? Email { get; set; }
 		public string? Password { get; set; }
-		public string? Role { get; set; } = "User";
+		public Role Role { get; set; } = Role.User;
 	}
 }

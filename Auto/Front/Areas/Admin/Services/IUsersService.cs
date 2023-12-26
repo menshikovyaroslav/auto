@@ -1,6 +1,6 @@
-﻿using IntroductionIntoASPmvc.Areas.Admin.Models;
+﻿using Front.Areas.Admin.Models;
 
-namespace IntroductionIntoASPmvc.Areas.Admin.Services
+namespace Front.Areas.Admin.Services
 {
 	public interface IUsersService
 	{

@@ -1,9 +1,9 @@
-﻿using IntroductionIntoASPmvc.Areas.Admin.Models;
-using IntroductionIntoASPmvc.Areas.Admin.Services;
+﻿using Front.Areas.Admin.Models;
+using Front.Areas.Admin.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IntroductionIntoASPmvc.Areas.Admin.Controllers
+namespace Front.Areas.Admin.Controllers
 {
     [Authorize(Policy = "AdminArea")]
     [Area("Admin")]

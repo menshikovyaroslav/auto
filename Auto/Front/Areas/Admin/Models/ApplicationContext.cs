@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace IntroductionIntoASPmvc.Areas.Admin.Models
+namespace Front.Areas.Admin.Models
 {
 	public class ApplicationContext: DbContext
 	{

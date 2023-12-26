@@ -1,4 +1,5 @@
-﻿@using IntroductionIntoASPmvc.Areas.Admin.Models;
+﻿@using Front.Areas.Admin.Models;
+@using Front.Classes;
 
 @model User
 
@@ -33,7 +34,7 @@
             </div>
         }
 
-        @if (@Model != null && Model.Role == "Admin")
+        @if (@Model != null && Model.Role == Role.Admin)
         {
             <div class="user-section">
                 <a href="/admin">Admin panel</a>
