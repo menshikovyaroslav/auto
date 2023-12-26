@@ -1,0 +1,11 @@
+﻿@using IntroductionIntoASPmvc.Areas.Admin.Models;
+
+@model User
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <span>Hello, @Model.Name !!!</span>
+}

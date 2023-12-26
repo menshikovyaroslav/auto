@@ -1,0 +1,53 @@
+﻿@using IntroductionIntoASPmvc.Areas.Admin.Models;
+
+@model User
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/css/StyleSheet.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="topmenu">
+        <div class="tabs-section">
+            <div class="menu-element">
+                <a href="/account/index">Main</a>
+            </div>
+
+            @if (@Model == null)
+            {
+                <div class="menu-element">
+                    <a href="/account/login">Sign in</a>
+                </div>
+            }
+
+        </div>
+        @if (@Model != null)
+        {
+            <div class="user-section">
+                <a href="/account/logout">Logout(@Model.Email)</a>
+            </div>
+        }
+
+        @if (@Model != null && Model.Role == "Admin")
+        {
+            <div class="user-section">
+                <a href="/admin">Admin panel</a>
+            </div>
+        }
+
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        Copyright© Yaroslav Menshikov
+    </footer>
+</body>
+</html>
