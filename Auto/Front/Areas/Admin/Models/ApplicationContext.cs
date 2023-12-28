@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Front.Areas.Cars.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Front.Areas.Admin.Models
 {
-	public class ApplicationContext: DbContext
+    public class ApplicationContext: DbContext
 	{
 		public DbSet<User> Users { get; private set; } = null!;
         public DbSet<Brand> Brands { get; private set; } = null!;

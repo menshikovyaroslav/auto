@@ -30,6 +30,11 @@
                 <a href="/admin">Admin</a>
             }
 
+            @if (@Model != null && Model.Role == Role.Moderator)
+            {
+                <a href="/cars">Moderator</a>
+            }
+
             <a href="/account/about">About</a>
 
             @if (@Model != null)

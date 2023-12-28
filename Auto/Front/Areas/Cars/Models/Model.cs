@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Front.Areas.Cars.Models;
 
-namespace Front.Areas.Admin.Models
+namespace Front.Areas.Cars.Models
 {
     [Table("Models")]
     public class Model

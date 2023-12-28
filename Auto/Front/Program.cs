@@ -17,8 +17,9 @@ namespace Front
 
 			builder.Services.AddScoped<IUsersService, UsersService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+			builder.Services.AddScoped<ICarsService, CarsService>();
 
-            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+			string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 			builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
 				o =>
@@ -31,6 +32,10 @@ namespace Front
 				o.AddPolicy("AdminArea", policy =>
 				{
 					policy.RequireClaim("Role", Role.Admin.ToString());
+				});
+				o.AddPolicy("ModeratorArea", policy =>
+				{
+					policy.RequireClaim("Role", Role.Moderator.ToString());
 				});
 			});
 
