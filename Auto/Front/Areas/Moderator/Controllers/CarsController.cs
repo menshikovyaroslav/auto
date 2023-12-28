@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace Front.Areas.Cars.Controllers
 {
 	//[Authorize(Policy = "ModeratorArea")]
-	//[Area("Moderator")]
+	[Area("Moderator")]
 	public class CarsController : Controller
 	{
 		private ICarsService _carsService;
