@@ -27,7 +27,13 @@ namespace Front.Controllers
             return View("Index", user);
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> About()
+        {
+            return View("About");
+        }
+
+        [HttpGet]
         public IActionResult Login()
         {
             if (HttpContext.User.Identity.IsAuthenticated)

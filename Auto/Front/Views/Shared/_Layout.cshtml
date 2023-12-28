@@ -12,36 +12,35 @@
 
     <link rel="stylesheet" href="~/css/StyleSheet.css" asp-append-version="true" />
 </head>
+
 <body>
-    <div class="topmenu">
-        <div class="tabs-section">
-            <div class="menu-element">
-                <a href="/account/index">Main</a>
-            </div>
+
+    <div>
+        <nav>
+
+            <a href="/account/index">Home</a>
 
             @if (@Model == null)
             {
-                <div class="menu-element">
-                    <a href="/account/login">Sign in</a>
-                </div>
+                <a href="/account/login">Sign in</a>
             }
 
-        </div>
-        @if (@Model != null)
-        {
-            <div class="user-section">
-                <a href="/account/logout">Logout(@Model.Email)</a>
-            </div>
-        }
+            @if (@Model != null && Model.Role == Role.Admin)
+            {
+                <a href="/admin">Admin</a>
+            }
 
-        @if (@Model != null && Model.Role == Role.Admin)
-        {
-            <div class="user-section">
-                <a href="/admin">Admin panel</a>
-            </div>
-        }
+            <a href="/account/about">About</a>
 
+            @if (@Model != null)
+            {
+                <a href="/account/logout">Logout</a>
+            }
+
+            <div class="animation start-home"></div>
+        </nav>
     </div>
+
 
     <div>
         @RenderBody()
@@ -50,5 +49,7 @@
     <footer>
         Copyright© Yaroslav Menshikov
     </footer>
+
 </body>
+
 </html>

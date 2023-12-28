@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Front.Views.Home
+namespace Front.Views.Account
 {
     public class AboutModel : PageModel
     {
