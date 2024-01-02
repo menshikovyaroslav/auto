@@ -1,81 +1,93 @@
 ﻿using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
+using Front.Areas.Admin.ViewModels;
+using Front.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Front.Areas.Admin.Controllers
 {
-    [Authorize(Policy = "AdminArea")]
+    //[Authorize(Policy = "AdminArea")]
     [Area("Admin")]
 	public class UsersController : Controller
 	{
-		private IUsersService _usersService;
+        UserManager<User> _userManager;
 
-		public UsersController(IUsersService usersService)
+        public UsersController(UserManager<User> userManager)
 		{
-			_usersService = usersService;
-			// ViewBag.MyField = "name"; Просто пишем имя переменной (MyField) -- тут же и объявляется автоматом.
-		}
-
-		[HttpGet]
-		public async Task<IActionResult> Index()
-		{
-			var result = await _usersService.GetAllUsersAsync();
-			//if (result != null)
-			{
-				return View(result);
-			}
-			return NotFound();
-		}
+            _userManager = userManager;
+        }
 
 		[HttpGet]
-		public async Task<IActionResult> Create()
+		public IActionResult Index()
 		{
-			return View();
+			return View(_userManager.Users.ToList());
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Create(User user)
-		{
-			var result = await _usersService.CreateAsync(user);
-			if (result != null)
-			{
-				return RedirectToAction("Index");
-			}
-			return BadRequest();
-		}
+		//[HttpGet]
+		//public async Task<IActionResult> Create()
+		//{
+		//	return View();
+		//}
+
+		//[HttpPost]
+		//public async Task<IActionResult> Create(User user)
+		//{
+		//	var result = await _usersService.CreateAsync(user);
+		//	if (result != null)
+		//	{
+		//		return RedirectToAction("Index");
+		//	}
+		//	return BadRequest();
+		//}
 
 		[HttpPost]
 		public async Task<IActionResult> Delete(int? id)
 		{
-			var result = await _usersService.DeleteAsync(id);
-			if (result != null)
-			{
-				return RedirectToAction("Index");
-			}
+			//var result = await _usersService.DeleteAsync(id);
+			//if (result != null)
+			//{
+			//	return RedirectToAction("Index");
+			//}
 			return NotFound();
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int? id)
+		public async Task<IActionResult> Edit(string id)
 		{
-			var result = await _usersService.EditAsync(id);
-			if (result != null)
+            User user = await _userManager.FindByIdAsync(id);
+            if (user != null)
 			{
-				return View(result);
-			}
+                return View(new EditViewModel(user));
+            }
 			return NotFound();
-		}
+        }
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(User user)
+		public async Task<IActionResult> Edit(EditViewModel model)
 		{
-			var result = await _usersService.EditAsync(user);
-			if (result)
-			{
-				return RedirectToAction("Index");
-			}
-			return BadRequest();
+            if (ModelState.IsValid)
+            {
+                User? user = await _userManager.FindByIdAsync(model.Id);
+                if (user != null)
+                {
+                    user.Email = model.Email;
+                    user.UserName = model.Email;
+					user.Role = model.Role;
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+            }
+            return View(model);
 		}
 	}
 }

@@ -1,8 +1,11 @@
-﻿using Front.Areas.Admin.Services;
+﻿using Front.Areas.Admin.Models;
+using Front.Areas.Admin.Services;
+using Front.Classes;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -11,16 +14,28 @@ namespace Front.Controllers
 	public class AccountController : Controller
 	{
         private readonly IAccountService _accountService;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, SignInManager<User> signInManager)
         {
             _accountService = accountService;
+            _signInManager = signInManager;
         }
 
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
-			var email = HttpContext.User.Identity.Name;
+            if (User.IsInRole(Role.Moderator.ToString()))
+			{
+
+			}
+
+            if (User.IsInRole("Admin"))
+            {
+
+            }
+
+            var email = HttpContext.User.Identity.Name;
 			//var user = await _accountService.GetUser(email);
 
 			//if (user == null) Logout();
@@ -92,8 +107,9 @@ namespace Front.Controllers
         {
 			if (ModelState.IsValid)
 			{
-				var result =
-					await _accountService.LoginAsync(model);
+                var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
+
+
 				if (result.Succeeded)
 				{
 					// Принадлежит ли URL приложению.
@@ -103,7 +119,7 @@ namespace Front.Controllers
 					}
 					else
 					{
-						return RedirectToAction("Index", "Home");
+						return RedirectToAction("Index", "Account");
 					}
 				}
 				else

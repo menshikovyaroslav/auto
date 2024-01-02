@@ -30,12 +30,13 @@
                 <a href="/account/register">Register</a>
             }
 
-            @if (User.IsInRole("Admin"))
+            <a href="/admin">Admin</a>
+            @if (User.IsInRole(Role.Admin.ToString()))
             {
                 <a href="/admin">Admin</a>
             }
 
-            @if (User.IsInRole("Moderator"))
+            @if (User.IsInRole(Role.Moderator.ToString()))
             {
                 <a href="/moderator/cars">Moderator</a>
             }
@@ -44,7 +45,7 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                <a href="/account/logout">Logout</a>
+                <a href="/account/logout">Logout(@User.Identity.Name)</a>
             }
 
             <div class="animation start-home"></div>

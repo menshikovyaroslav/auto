@@ -11,7 +11,6 @@ namespace Front.Areas.Admin.Models
 	{
 		public User()
 		{
-
 		}
 
 		public User(ViewModel model)
@@ -21,10 +20,9 @@ namespace Front.Areas.Admin.Models
 
 			UserName = model.Login;
 			Email = model.Email;
+			Role = Role.User;
 		}
 
-		//public string? Login { get; set; }
-		//public string? Email { get; set; }
-		//public Role Role { get; set; } = Role.User;
+		public Role Role { get; set; }
 	}
 }

@@ -16,8 +16,7 @@
 	<tr>
 		<th>Id</th>
 		<th>Email</th>
-		<th>Имя</th>
-		<th>Пароль</th>
+		<th>UserName</th>
 		<th>Роль</th>
 	</tr>
 	@foreach (var item in Model)
@@ -26,8 +25,8 @@
 			<td>@item.Id</td>
 			<td>@item.Email</td>
 			<td>@item.UserName</td>
-@* 			<td>@item.Password</td>
-			<td>@item.Role</td> *@
+ 			@* <td>@item.Password</td> *@
+			<td>@item.Role</td> 
 			<td>
 				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
 					asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.

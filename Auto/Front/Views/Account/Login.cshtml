@@ -1,16 +1,21 @@
-﻿@{
+﻿@model Front.ViewModels.LoginViewModel
+
+@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Страница авторизации</h2>
-<form method="post">
-    <p>
-        <label>Email:</label><br />
-        <input name='email' />
-    </p>
-    <p>
-        <label>Пароль:</label><br>
-        <input type='password' name='password' />
-    </p>
+<form method="post" asp-controller="Account" asp-action="Login">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Login">Login</label><br>
+        <input asp-for="Login" />
+        <span asp-validation-for="Login"></span>
+    </div>
+    <div>
+        <label asp-for="Password">Password</label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
     <input type='submit' value='Авторизоваться' />
 </form>

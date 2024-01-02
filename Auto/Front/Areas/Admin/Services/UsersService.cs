@@ -1,34 +1,21 @@
 ﻿using Front.Areas.Admin.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Front.Areas.Admin.Services
 {
-	public class UsersService: IUsersService
+	public class UsersService
 	{
-		private ApplicationContext _db;
+		UserManager<User> _userManager;
 
-		public UsersService(ApplicationContext db)
+		public UsersService(UserManager<User> userManager)
 		{
-			_db = db;
+			_userManager = userManager;
 		}
 
-		public async Task<IEnumerable<User>> GetAllUsersAsync()
+		public List<User> GetAllUsers()
 		{
-			//if (_db.Users.Count() != 0)
-				return await _db.Users.ToListAsync();
-			//else
-				return null;
-		}
-
-		public async Task<bool> CreateAsync(User user)
-		{
-			if (user != null)
-			{
-				_db.Users.Add(user);
-				await _db.SaveChangesAsync();
-				return true;
-			}
-			return false;
+			return _userManager.Users.ToList();
 		}
 
 		public async Task<bool> DeleteAsync(int? id)
@@ -46,24 +33,20 @@ namespace Front.Areas.Admin.Services
 			return false;
 		}
 
-		public async Task<User> EditAsync(int? id)
+		public async Task<User> EditAsync(string id)
 		{
-            User? user = null;
-			//if (id != null)
-			//{
-			//	user = await _db.Users.FirstOrDefaultAsync(_ => _.Id == id);
-			//}
+			User user = await _userManager.FindByIdAsync(id);
 			return user;
 		}
 
 		public async Task<bool> EditAsync(User user)
 		{
-			if (user != null)
-			{
-				_db.Users.Update(user);
-				await _db.SaveChangesAsync();
-				return true;
-			}
+			//if (user != null)
+			//{
+			//	_db.Users.Update(user);
+			//	await _db.SaveChangesAsync();
+			//	return true;
+			//}
 			return false;
 		}
 	}

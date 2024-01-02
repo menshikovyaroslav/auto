@@ -16,7 +16,6 @@ namespace Front
 
 			builder.Services.AddMvc();
 
-			builder.Services.AddScoped<IUsersService, UsersService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
 			builder.Services.AddScoped<ICarsService, CarsService>();
 
