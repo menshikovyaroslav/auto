@@ -1,4 +1,5 @@
 ﻿using Front.Areas.Admin.Services;
+using Front.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +17,48 @@ namespace Front.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+		[HttpGet]
+		public async Task<IActionResult> Index()
 		{
-            var email = HttpContext.User.Identity.Name;
-            var user = await _accountService.GetUser(email);
+			var email = HttpContext.User.Identity.Name;
+			//var user = await _accountService.GetUser(email);
 
-            if (user == null) Logout();
+			//if (user == null) Logout();
 
-            return View("Index", user);
+			return View("Index");
 		}
+
+		[Authorize]
+		[HttpGet]
+		public IActionResult ChangePassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ChangePasswordAsync(string OldPassword, string NewPassword)
+		{
+			var errors = string.Empty;
+
+			var result = await _accountService.ChangePasswordAsync(User.Identity.Name, OldPassword, NewPassword);
+
+			if (result.Succeeded)
+			{
+				return Ok("Вы успешно сменили пароль.");
+			}
+			else
+			{
+				//ModelState.AddModelError(string.Empty, "Неверный пароль");
+				//foreach (var error in result.Errors)
+				//{
+				//    errors += $"{error.Description}<br>";
+				//}
+				errors += "Неверный пароль";
+			}
+
+			return Content(errors);
+		}
+
 
         [HttpGet]
         public async Task<IActionResult> About()
@@ -34,14 +67,16 @@ namespace Front.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+			//if (HttpContext.User.Identity.IsAuthenticated)
+			//{
+			//    return RedirectToAction("Index");
+			//}
+			//return View();
+
+			return View(new LoginViewModel { ReturnUrl = returnUrl });
+		}
 
         [HttpGet]
         public IActionResult BadAuth()
@@ -52,38 +87,42 @@ namespace Front.Controllers
         // RedirectToIndex
 
         [HttpPost]
-        public async Task<IActionResult> Login(string returnUrl)
+		//[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var form = Request.Form;
+			if (ModelState.IsValid)
+			{
+				var result =
+					await _accountService.LoginAsync(model);
+				if (result.Succeeded)
+				{
+					// Принадлежит ли URL приложению.
+					if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+					{
+						return Redirect(model.ReturnUrl);
+					}
+					else
+					{
+						return RedirectToAction("Index", "Home");
+					}
+				}
+				else
+				{
+					ModelState.AddModelError("", "Неверный логин и (или) пароль");
+				}
+			}
 
-            if (!form.ContainsKey("email") || !form.ContainsKey("password"))
-            {
-                return NotFound();
-            }
+			return View(model);
 
-            string email = form["email"];
-            string password = form["password"];
 
-            var user = await _accountService.GetUser(email, password);
 
-            if (user == null)
-            {
-                //return NotFound();
-                return RedirectToAction("BadAuth");
-            }
-
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Email), new Claim("Role", user.Role.ToString()) };
-            ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-            return RedirectToAction("Index");
-        }
+		}
 
         //[HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			await _accountService.LogoutAsync();
             return RedirectToAction("Login");
         }
 
@@ -93,5 +132,36 @@ namespace Front.Controllers
             HttpContext.Response.StatusCode = 403;
             await HttpContext.Response.WriteAsync("Access Denied");
         }
-    }
+
+		[HttpGet]
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterViewModel model)
+		{
+			string errors = "";
+
+			if (ModelState.IsValid)
+			{
+				var result = await _accountService.RegisterAsync(model);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index", "Account");
+				}
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						errors += $"error={error}, desc={error.Description}\r\n";
+
+                        ModelState.AddModelError(string.Empty, error.Description);
+					}
+				}
+			}
+			return View(model);
+		}
+	}
 }

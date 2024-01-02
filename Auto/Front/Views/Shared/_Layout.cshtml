@@ -1,7 +1,7 @@
 ﻿@using Front.Areas.Admin.Models;
 @using Front.Classes;
 
-@model User
+@model Front.ViewModels.LoginViewModel
 
 <!DOCTYPE html>
 
@@ -20,24 +20,29 @@
 
             <a href="/account/index">Home</a>
 
-            @if (@Model == null)
+            @if (!User.Identity.IsAuthenticated)
             {
                 <a href="/account/login">Sign in</a>
             }
 
-            @if (@Model != null && Model.Role == Role.Admin)
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a href="/account/register">Register</a>
+            }
+
+            @if (User.IsInRole("Admin"))
             {
                 <a href="/admin">Admin</a>
             }
 
-            @if (@Model != null && Model.Role == Role.Moderator)
+            @if (User.IsInRole("Moderator"))
             {
                 <a href="/moderator/cars">Moderator</a>
             }
 
             <a href="/account/about">About</a>
 
-            @if (@Model != null)
+            @if (User.Identity.IsAuthenticated)
             {
                 <a href="/account/logout">Logout</a>
             }

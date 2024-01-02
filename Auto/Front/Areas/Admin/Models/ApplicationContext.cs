@@ -1,11 +1,11 @@
 ﻿using Front.Areas.Cars.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Front.Areas.Admin.Models
 {
-    public class ApplicationContext: DbContext
-	{
-		public DbSet<User> Users { get; private set; } = null!;
+    public class ApplicationContext: IdentityDbContext<User>
+    {
         public DbSet<Brand> Brands { get; private set; } = null!;
         public DbSet<Model> Models { get; private set; } = null!;
         public DbSet<Car> Cars { get; private set; } = null!;
@@ -16,13 +16,18 @@ namespace Front.Areas.Admin.Models
             //Database.EnsureDeleted();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Model>()
-            .HasOne(o => o.Brand)
-            .WithOne()
-            .HasForeignKey<Model>(i => i.Id)
-            .OnDelete(DeleteBehavior.Cascade);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Model>()
+        //    .HasOne(o => o.Brand)
+        //    .WithOne()
+        //    .HasForeignKey<Model>(i => i.Id)
+        //    .OnDelete(DeleteBehavior.Cascade);
+        //}
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

@@ -3,6 +3,7 @@ using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
 using Front.Classes;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Front
@@ -21,29 +22,18 @@ namespace Front
 
 			string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 			builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
-			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-				o =>
-				{
-					o.LoginPath = "/home/login";
-					o.AccessDeniedPath = "/home/accessdenied";
-				});
-			builder.Services.AddAuthorization(o =>
-			{
-				o.AddPolicy("AdminArea", policy =>
-				{
-					policy.RequireClaim("Role", Role.Admin.ToString());
-				});
-				o.AddPolicy("ModeratorArea", policy =>
-				{
-					policy.RequireClaim("Role", Role.Moderator.ToString());
-				});
-			});
 
-			var app = builder.Build();
+            builder.Services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<ApplicationContext>();
+
+            var app = builder.Build();
 
 			app.UseAuthentication();
 			app.UseRouting();
 			app.UseAuthorization();
+			app.UseStatusCodePages();
 			app.UseStaticFiles();
 			app.UseEndpoints(endpoints =>
 			{

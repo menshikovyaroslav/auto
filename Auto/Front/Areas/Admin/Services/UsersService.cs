@@ -33,26 +33,26 @@ namespace Front.Areas.Admin.Services
 
 		public async Task<bool> DeleteAsync(int? id)
 		{
-			if (id != null)
-			{
-                User? user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
-				if (user != null)
-				{
-					_db.Users.Remove(user);
-					await _db.SaveChangesAsync();
-					return true;
-				}
-			}
+			//if (id != null)
+			//{
+   //             User? user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
+			//	if (user != null)
+			//	{
+			//		_db.Users.Remove(user);
+			//		await _db.SaveChangesAsync();
+			//		return true;
+			//	}
+			//}
 			return false;
 		}
 
 		public async Task<User> EditAsync(int? id)
 		{
             User? user = null;
-			if (id != null)
-			{
-				user = await _db.Users.FirstOrDefaultAsync(_ => _.Id == id);
-			}
+			//if (id != null)
+			//{
+			//	user = await _db.Users.FirstOrDefaultAsync(_ => _.Id == id);
+			//}
 			return user;
 		}
 

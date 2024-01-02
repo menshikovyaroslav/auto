@@ -8,25 +8,3 @@
 }
 
 <h2>Изменить данные</h2>
-<form asp-action="edit" asp-controller="users" asp-route-id="@Model.Id">
-	<p>
-		<label asp-for="Email">Почта </label><br />
-		<input type="email" asp-for="Email" />
-	</p>
-	<p>
-		<label asp-for="Name">Имя</label><br />
-		<input type="text" asp-for="Name" />
-	</p>
-	<p>
-		<label asp-for="Password">Пароль</label><br />
-		<input type="password" asp-for="Password" />
-	</p>
-	<p>
-		<label asp-for="Role">Роль</label><br />
-		<select asp-for="Role">
-			<option value="User">User</option>
-			<option value="Admin">Admin</option>
-		</select>
-	</p>
-	<input type="submit" value="Сохранить" />
-</form>

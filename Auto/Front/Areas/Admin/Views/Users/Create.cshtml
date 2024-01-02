@@ -9,34 +9,3 @@
 }
 
 <h2>Добавить пользователя</h2>
-<form asp-action="create" asp-controller="users">
-    <p>
-        @*		asp-for - какой переменной передастся значение из поля ввода и будет присвоено. Не работает нормально
-        с generic'ами.
-
-        asp-for -- выводит имя переменной в label. Имя можно указать в ViewModel.
-        *@
-        <label asp-for="Email">Почта </label><br />
-        <input type="email" asp-for="Email" />
-    </p>
-    </p>
-    <p>
-        <label asp-for="Name">Имя </label><br />
-        <input type="text" asp-for="Name" />
-    </p>
-    <p>
-    <p>
-        <label asp-for="Password">Пароль</label><br />
-        <input type="password" asp-for="Password" />
-    </p>
-    <p>
-        <label asp-for="Role">Роль</label><br />
-        <select asp-for="Role">
-                @foreach (Role role in (Role[])Enum.GetValues(typeof(Role)))
-                {
-                <option value=@role>@role</option>
-                }
-        </select>
-    </p>
-    <input type="submit" value="Создать пользователя" />
-</form>
