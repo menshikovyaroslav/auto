@@ -1,0 +1,18 @@
+﻿@using Front.Areas.Admin.Models;
+@using Microsoft.AspNetCore.Identity;
+
+@model Front.ViewModels.CreateRoleViewModel;
+
+@{
+	ViewBag.Title = "Create role";
+    Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="Create" asp-controller="Roles" method="post">
+    <div>
+        <label asp-for="Name">Новая роль</label>
+        <input asp-for="Name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+
+</form>

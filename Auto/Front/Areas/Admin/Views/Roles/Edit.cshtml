@@ -1,0 +1,27 @@
+﻿@using Front.Areas.Admin.Models;
+@using Microsoft.AspNetCore.Identity
+
+@model Front.Areas.Admin.ViewModels.EditUserRolesViewModel;
+
+@{
+    ViewBag.Title = "Edit roles";
+    Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Изменить данные</h2>
+
+<form asp-action="EditUser" asp-controller="Roles" method="post">
+    <input type="hidden" name="userId" value="@Model.Id" />
+    <div class="form-group">
+        @foreach (IdentityRole role in Model.AllRoles)
+        {
+            <input type="checkbox" name="roles" value="@role.Name"
+            @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+
+            @role.Name <br />
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+

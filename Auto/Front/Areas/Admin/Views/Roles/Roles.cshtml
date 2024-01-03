@@ -1,0 +1,32 @@
+﻿@using Front.Areas.Admin.Models;
+@using Microsoft.AspNetCore.Identity;
+
+@model IEnumerable<IdentityRole> // Данные, с кот. работает вьюха.
+
+@{
+	ViewBag.Title = "Роли сайта";
+	Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Роли:</h2>
+<p>
+	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
+	<a asp-action="Create">Добавить новую роль</a>
+</p>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Delete</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Name</td>
+			<td>
+				<form asp-action="Delete" asp-controller="roles" method="post" asp-route-id="@item.Id">
+					<input type="submit" value="Удалить"/>
+				</form>
+			</td>
+		</tr>
+	}
+</table>

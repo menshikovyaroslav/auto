@@ -1,0 +1,43 @@
+﻿@using Front.Areas.Admin.Models;
+
+@model IEnumerable<User> // Данные, с кот. работает вьюха.
+
+@{
+	ViewBag.Title = "Пользователи сайта";
+	Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Пользователи:</h2>
+<p>
+	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
+	<a asp-action="Create">Добавить нового пользователя</a>
+</p>
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Email</th>
+		<th>UserName</th>
+		<th>Change</th>
+		<th>Roles</th>
+		<th>Delete</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.Email</td>
+			<td>@item.UserName</td>
+			<td>
+				<a asp-action="Edit" asp-controller="users" asp-route-id="@item.Id">Изменить</a>
+			</td>
+			<td>
+				<a asp-action="Edit" asp-controller="roles" asp-route-id="@item.Id">Изменить</a>
+			</td>
+			<td>
+				<form asp-action="Delete" method="post" asp-route-id="@item.Id">
+					<input type="submit" value="Удалить"/>
+				</form>
+			</td>
+		</tr>
+	}
+</table>
