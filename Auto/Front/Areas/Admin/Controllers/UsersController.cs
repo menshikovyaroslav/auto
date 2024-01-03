@@ -12,11 +12,13 @@ namespace Front.Areas.Admin.Controllers
     [Area("Admin")]
     public class UsersController : Controller
     {
+        RoleManager<IdentityRole> _roleManager;
         UserManager<User> _userManager;
 
-        public UsersController(UserManager<User> userManager)
+        public UsersController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -25,22 +27,33 @@ namespace Front.Areas.Admin.Controllers
             return View(_userManager.Users.ToList());
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Create()
-        //{
-        //	return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(User user)
-        //{
-        //	var result = await _usersService.CreateAsync(user);
-        //	if (result != null)
-        //	{
-        //		return RedirectToAction("Index");
-        //	}
-        //	return BadRequest();
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User(model);
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
@@ -74,7 +87,6 @@ namespace Front.Areas.Admin.Controllers
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
-                    user.Role = model.Role;
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
@@ -88,12 +100,6 @@ namespace Front.Areas.Admin.Controllers
                 }
             }
             return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Users()
-        {
-            return View(_userManager.Users.ToList());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Front.Classes;
-using Front.Models;
+﻿using Front.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Front.ViewModels
@@ -14,7 +13,6 @@ namespace Front.ViewModels
 
 		[Display(Name = "Запомнить?")]
 		public bool RememberMe { get; set; }
-        public Role Role { get; set; } = Role.User;
         public string? ReturnUrl { get; set; }
 	}
 }

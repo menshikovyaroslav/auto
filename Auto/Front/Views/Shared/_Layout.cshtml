@@ -1,5 +1,4 @@
 ﻿@using Front.Areas.Admin.Models;
-@using Front.Classes;
 
 @model Front.ViewModels.LoginViewModel
 
@@ -30,13 +29,12 @@
                 <a href="/account/register">Register</a>
             }
 
-            <a href="/admin">Admin</a>
-            @if (User.IsInRole(Role.Admin.ToString()))
+            @if (User.IsInRole("Admin"))
             {
                 <a href="/admin">Admin</a>
             }
 
-            @if (User.IsInRole(Role.Moderator.ToString()))
+            @if (User.IsInRole("Moderator"))
             {
                 <a href="/moderator/cars">Moderator</a>
             }

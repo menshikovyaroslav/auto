@@ -90,10 +90,16 @@ namespace Front.Areas.Admin.Controllers
 
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
-                return RedirectToAction("Users", "Users");
+                return RedirectToAction("Index", "Users");
             }
 
             return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -104,7 +110,7 @@ namespace Front.Areas.Admin.Controllers
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Roles", "Roles");
+                    return RedirectToAction("Index", "Roles");
                 }
                 else
                 {
@@ -118,15 +124,9 @@ namespace Front.Areas.Admin.Controllers
         }
 
 		[HttpGet]
-		public IActionResult Roles()
+		public IActionResult Index()
 		{
 			return View(_roleManager.Roles.ToList());
-		}
-
-		[HttpGet]
-		public async Task<IActionResult> Create()
-		{
-			return View();
 		}
 
 		[HttpPost]
@@ -137,7 +137,7 @@ namespace Front.Areas.Admin.Controllers
 			{
 				IdentityResult result = await _roleManager.DeleteAsync(role);
 			}
-			return RedirectToAction("Roles", "Roles");
+			return RedirectToAction("Index");
 		}
 	}
 }

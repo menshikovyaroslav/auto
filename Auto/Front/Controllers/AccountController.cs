@@ -1,6 +1,5 @@
 ﻿using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
-using Front.Classes;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -25,21 +24,6 @@ namespace Front.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
-            if (User.IsInRole(Role.Moderator.ToString()))
-			{
-
-			}
-
-            if (User.IsInRole("Admin"))
-            {
-
-            }
-
-            var email = HttpContext.User.Identity.Name;
-			//var user = await _accountService.GetUser(email);
-
-			//if (user == null) Logout();
-
 			return View("Index");
 		}
 
