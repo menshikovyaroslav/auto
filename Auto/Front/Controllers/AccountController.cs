@@ -118,12 +118,12 @@ namespace Front.Controllers
 
 		}
 
-        //[HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-			await _accountService.LogoutAsync();
-            return RedirectToAction("Login");
+            // удаляем аутентификационные куки
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Account");
         }
 
         [HttpGet]
