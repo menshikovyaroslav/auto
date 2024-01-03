@@ -1,0 +1,38 @@
+﻿@using Front.Areas.Cars.Models;
+
+@model IEnumerable<Brand> // Данные, с кот. работает вьюха.
+
+@{
+	Layout = "/Areas/Moderator/Shared/_ModeratorLayout.cshtml";
+}
+
+<h2>Brands:</h2>
+<p>
+	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
+	<a asp-action="Create">Create new brand</a>
+</p>
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.Name</td>
+
+			<td>
+				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
+			asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
+			*@
+				<a asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Изменить</a>
+			</td>
+			<td>
+				<form asp-action="Delete" method="post" asp-route-id="@item.Id">
+					<input type="submit" value="Удалить" />
+				</form>
+			</td>
+		</tr>
+	}
+</table>

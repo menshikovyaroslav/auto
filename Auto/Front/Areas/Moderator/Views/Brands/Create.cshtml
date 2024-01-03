@@ -1,0 +1,19 @@
+﻿@using Front.Areas.Moderator.ViewModels;
+
+@model CreateBrandViewModel;
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "/Areas/Moderator/Shared/_ModeratorLayout.cshtml";
+}
+
+<h2>Добавить бренд</h2>
+
+<form asp-action="Create" asp-controller="Brands" method="post">
+    <div>
+        <label asp-for="Name">Новый бренд</label>
+        <input asp-for="Name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+
+</form>

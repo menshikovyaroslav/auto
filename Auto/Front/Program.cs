@@ -35,8 +35,9 @@ namespace Front
 			app.UseStaticFiles();
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute("area", "{area:exists}/{controller=Users}/{action=Index}/{id?}");
-				endpoints.MapControllerRoute("default", "{controller=Account}/{action=Index}/{id?}");
+				endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Users}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("moderator", "{area:exists}/{controller=Catalog}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Account}/{action=Index}/{id?}");
 			});
 
 			app.Run();

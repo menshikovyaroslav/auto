@@ -9,20 +9,31 @@ namespace Front.Areas.Cars.Controllers
 {
 	//[Authorize(Policy = "ModeratorArea")]
 	[Area("Moderator")]
-	public class CarsController : Controller
+	public class CatalogController : Controller
 	{
 		private ICarsService _carsService;
 
-		public CarsController(ICarsService carsService)
+		public CatalogController(ICarsService carsService)
 		{
 			_carsService = carsService;
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			var result = await _carsService.GetAllBrandsAsync();
-			return View("Index", result);
+			return View(_carsService.GetAllBrandsAsync());
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Brands()
+		{
+			return View("Index");
 		}
 	}
 }
