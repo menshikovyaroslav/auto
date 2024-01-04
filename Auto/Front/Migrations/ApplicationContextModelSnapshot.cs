@@ -106,7 +106,7 @@ namespace Front.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("Front.Areas.Cars.Models.Car", b =>
@@ -136,7 +136,7 @@ namespace Front.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("Front.Areas.Cars.Models.Model", b =>
@@ -163,7 +163,7 @@ namespace Front.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Models");
+                    b.ToTable("Models", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

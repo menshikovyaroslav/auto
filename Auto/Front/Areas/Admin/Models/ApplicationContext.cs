@@ -6,13 +6,13 @@ namespace Front.Areas.Admin.Models
 {
     public class ApplicationContext: IdentityDbContext<User>
     {
-        public DbSet<Brand> Brands { get; private set; } = null!;
-        public DbSet<Model> Models { get; private set; } = null!;
+        public DbSet<Brand> Brands { get; private set; }
+        public DbSet<Model> Models { get; private set; }
         public DbSet<Car> Cars { get; private set; } = null!;
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
 		{
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
             //Database.EnsureDeleted();
         }
 

@@ -48,7 +48,7 @@ namespace Front.Areas.Cars.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _carsService.DeleteBrandAsync(id);
             return RedirectToAction("Index", "Brands");
