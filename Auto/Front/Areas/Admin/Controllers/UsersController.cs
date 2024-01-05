@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Front.Areas.Admin.Controllers
 {
-    //[Authorize(Policy = "AdminArea")]
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
     public class UsersController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
@@ -86,7 +86,7 @@ namespace Front.Areas.Admin.Controllers
                 if (user != null)
                 {
                     user.Email = model.Email;
-                    user.UserName = model.Email;
+                    user.UserName = model.Login;
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)

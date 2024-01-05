@@ -26,10 +26,10 @@
 			<td>@item.UserName</td>
 			<td>@item.Email</td>
 			<td>
-				<a asp-action="Edit" asp-controller="users" asp-route-id="@item.Id">Изменить</a>
+				<a class="editlabel" asp-action="Edit" asp-controller="users" asp-route-id="@item.Id">Изменить</a>
 			</td>
 			<td>
-				<a asp-action="Edit" asp-controller="roles" asp-route-id="@item.Id">Изменить</a>
+				<a class="editlabel" asp-action="Edit" asp-controller="roles" asp-route-id="@item.Id">Изменить</a>
 			</td>
 			<td>
 				<form asp-action="Delete" method="post" asp-route-id="@item.Id">

@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace Front.Areas.Cars.Controllers
 {
-	//[Authorize(Policy = "ModeratorArea")]
+	[Authorize(Roles = "Moderator")]
 	[Area("Moderator")]
 	public class BrandsController : Controller
 	{

@@ -9,8 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Front.Areas.Admin.Controllers
 {
-    //[Authorize(Policy = "AdminArea")]
-    [Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	[Area("Admin")]
 	public class RolesController : Controller
 	{
 		RoleManager<IdentityRole> _roleManager;

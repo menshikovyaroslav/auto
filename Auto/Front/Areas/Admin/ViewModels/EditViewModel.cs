@@ -5,6 +5,10 @@ namespace Front.Areas.Admin.ViewModels
 {
 	public class EditViewModel : ViewModel
     {
+        public EditViewModel()
+        {
+        }
+
         public EditViewModel(User user)
         {
             Login = user.UserName;
