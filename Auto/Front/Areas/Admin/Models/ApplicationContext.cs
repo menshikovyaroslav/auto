@@ -8,7 +8,8 @@ namespace Front.Areas.Admin.Models
     {
         public DbSet<Brand> Brands { get; private set; }
         public DbSet<Model> Models { get; private set; }
-        public DbSet<Car> Cars { get; private set; } = null!;
+        public DbSet<Car> Cars { get; private set; }
+        public DbSet<Color> Colors { get; private set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
 		{

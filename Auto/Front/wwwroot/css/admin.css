@@ -88,14 +88,24 @@ a.createlabel {
     color: #007bff;
     font-weight: bold;
     margin: 20px;
+    text-decoration: none;
 }
+
+    a.createlabel:hover {
+        text-decoration: underline; /* Подчеркивание при наведении */
+    }
 
 a.editlabel {
     /* Ваши стили для ссылок с классом createlabel */
     color: #007bff;
     font-weight: bold;
     margin: 20px;
+    text-decoration: none;
 }
+
+    a.editlabel:hover {
+        text-decoration: underline; /* Подчеркивание при наведении */
+    }
 
 select {
     padding: 8px;

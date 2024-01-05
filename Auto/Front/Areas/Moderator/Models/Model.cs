@@ -13,5 +13,10 @@ namespace Front.Areas.Cars.Models
         public string? Name { get; set; }
         public string? Picture { get; set; }
         public int Year { get; set; }
-    }
+
+		public override string ToString()
+		{
+			return $"{Brand.Name} ({Name})";
+		}
+	}
 }

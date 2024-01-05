@@ -10,11 +10,22 @@ namespace Front.Areas.Admin.Services
         public Task<Brand> GetBrandAsync(int id);
         public Task EditBrandAsync(Brand brand);
 
+        public Task<IEnumerable<Color>> GetAllColorsAsync();
+        public Task CreateColorAsync(Color color);
+        public Task DeleteColorAsync(int id);
+        public Task<Color> GetColorAsync(int id);
+        public Task EditColorAsync(Color color);
 
         public Task<IEnumerable<Model>> GetAllModelsAsync();
         public Task CreateModelAsync(Model model);
 		public Task DeleteModelAsync(int id);
 		public Task<Model> GetModelAsync(int id);
         public Task EditModelAsync(Model model);
+
+		public Task<IEnumerable<Car>> GetAllCarsAsync();
+		public Task CreateCarAsync(Car car);
+        public Task DeleteCarAsync(int id);
+        public Task<Car> GetCarAsync(int id);
+        public Task EditCarAsync(Car car);
     }
 }

@@ -1,41 +1,33 @@
 ﻿@using Front.Areas.Cars.Models;
 
-@model IEnumerable<Car>
+@model IEnumerable<Color> // Данные, с кот. работает вьюха.
 
 @{
-	ViewBag.Title = "Cars";
-    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
+	ViewBag.Title = "Colors";
+	Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
-<h2>Cars</h2>
+<h2>Colors</h2>
 <p>
 	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
-	<a class="createlabel" asp-action="Create">Create new car</a>
+	<a class="createlabel" asp-action="Create">Create new color</a>
 </p>
 <table>
 	<tr>
-		<th>Id</th>
-		<th>Model</th>
-		<th>Year</th>
-		<th>Distance</th>
-		<th>Color</th>
+		<th>Name</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
 	@foreach (var item in Model)
 	{
 		<tr>
-			<td>@item.Id</td>
-			<td>@item.Model.ToString()</td>
-			<td>@item.Year</td>
-			<td>@item.Distance</td>
-			<td>@item.Color.Name</td>
+			<td>@item.Name</td>
 
 			<td>
 				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
 			asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
 			*@
-				<a asp-action="Edit" class="editlabel" asp-controller="Catalog" asp-route-id="@item.Id">Edit</a>
+				<a class="editlabel" asp-action="Edit" asp-controller="Colors" asp-route-id="@item.Id">Изменить</a>
 			</td>
 			<td>
 				<form asp-action="Delete" method="post" asp-route-id="@item.Id">

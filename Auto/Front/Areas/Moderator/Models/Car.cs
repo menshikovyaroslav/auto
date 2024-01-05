@@ -11,7 +11,7 @@ namespace Front.Areas.Cars.Models
         public Model Model { get; set; }
         public int? Year { get; set; }
         public int? Distance { get; set; }
-        public string? Color { get; set; }
+        public Color Color { get; set; }
         public string? AdditionalInfo { get; set; }
     }
 }

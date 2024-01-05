@@ -1,19 +1,19 @@
 ﻿@using Front.Areas.Moderator.ViewModels;
 
-@model CreateBrandViewModel;
+@model CreateColorViewModel;
 
 @{
-    ViewBag.Title = "Create brand";
+    ViewBag.Title = "Create color";
     Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
-<h2>Create new brand</h2>
+<h2>Create new color</h2>
 
-<form asp-action="Create" asp-controller="Brands" method="post">
+<form asp-action="Create" asp-controller="Colors" method="post">
 
 <table>
     <tr>
-            <th>Brand Name</th>
+            <th>Color Name</th>
     </tr>
     <tr>
         <td>

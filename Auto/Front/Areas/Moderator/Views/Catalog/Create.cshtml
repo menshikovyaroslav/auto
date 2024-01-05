@@ -1,0 +1,71 @@
+﻿@using Front.Areas.Cars.Models
+@using Front.Areas.Moderator.ViewModels;
+
+@model CreateCarViewModel;
+
+@{
+    ViewBag.Title = "Create car";
+    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
+}
+
+<h2>Добавить модель</h2>
+
+<form asp-action="Create" asp-controller="Catalog" method="post">
+
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Color</th>
+            <th>Distance</th>
+        </tr>
+
+        <tr>
+            <td>
+                <select asp-for="BrandId">
+                    @foreach (Brand brand in Model.AllBrands)
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select asp-for="ModelId">
+                    @foreach (Model item in Model.AllModels)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select asp-for="Year">
+                    @foreach (int item in Model.AllYears)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select asp-for="ColorId">
+                    @foreach (Color item in Model.AllColors)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <input asp-for="Distance" />
+            </td>
+        </tr>
+
+    </table>
+
+    <div>
+        <nav>
+            <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+            <input type="submit" value="Create" />
+        </nav>
+    </div>
+
+</form>
