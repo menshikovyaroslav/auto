@@ -5,14 +5,28 @@
 
 @{
 	ViewBag.Title = "Create role";
-    Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+    Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <form asp-action="Create" asp-controller="Roles" method="post">
+
+    <table>
+        <tr>
+            <th>Role Name</th>
+        </tr>
+        <tr>
+            <td>
+                <input asp-for="Name" />
+            </td>
+        </tr>
+
+    </table>
+
     <div>
-        <label asp-for="Name">Новая роль</label>
-        <input asp-for="Name" />
+        <nav>
+            <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+            <input type="submit" value="Create" />
+        </nav>
     </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
 
 </form>

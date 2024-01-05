@@ -1,0 +1,112 @@
+﻿/* AdminStyles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+nav {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 16px;
+    }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+table {
+    width: calc(100% - 40px);
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    display: inline; /* чтобы кнопка "Удалить" была на той же строке, что и текст */
+}
+
+input[type="submit"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: #c82333;
+    }
+
+input[type="button"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+    input[type="button"]:hover {
+        background-color: #c82333;
+    }
+
+a.createlabel {
+    /* Ваши стили для ссылок с классом createlabel */
+    color: #007bff;
+    font-weight: bold;
+    margin: 20px;
+}
+
+a.editlabel {
+    /* Ваши стили для ссылок с классом createlabel */
+    color: #007bff;
+    font-weight: bold;
+    margin: 20px;
+}
+
+select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

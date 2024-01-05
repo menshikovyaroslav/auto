@@ -4,14 +4,14 @@
 @model IEnumerable<IdentityRole> // Данные, с кот. работает вьюха.
 
 @{
-	ViewBag.Title = "Роли сайта";
-	Layout = "/Areas/Admin/Shared/_AdminLayout.cshtml";
+	ViewBag.Title = "Roles administration";
+	Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Роли:</h2>
+<h2>Roles</h2>
 <p>
 	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
-	<a asp-action="Create">Добавить новую роль</a>
+	<a class="createlabel" asp-action="Create">Add new role</a>
 </p>
 <table>
 	<tr>

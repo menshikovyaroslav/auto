@@ -6,21 +6,30 @@
 
 @{
     ViewBag.Title = "Edit brand";
-    Layout = "/Areas/Moderator/Shared/_ModeratorLayout.cshtml";
+    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
 <h2>Изменить данные</h2>
 
 <form asp-action="Edit" asp-controller="Brands" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Name">Name</label><br>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
+
+    <table>
+        <tr>
+            <th>Brand Name</th>
+        </tr>
+        <tr>
+            <td>
+                <input asp-for="Name" />
+            </td>
+        </tr>
+
+    </table>
 
     <div>
-        <input type="submit" value="Make changes" />
+        <nav>
+            <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+            <input type="submit" value="Make changes" />
+        </nav>
     </div>
 </form>
 

@@ -4,16 +4,30 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "/Areas/Moderator/Shared/_ModeratorLayout.cshtml";
+    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
-<h2>Добавить бренд</h2>
+<h2>Create new brand</h2>
 
 <form asp-action="Create" asp-controller="Brands" method="post">
-    <div>
-        <label asp-for="Name">Новый бренд</label>
-        <input asp-for="Name" />
-    </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
+
+<table>
+    <tr>
+            <th>Brand Name</th>
+    </tr>
+    <tr>
+        <td>
+            <input asp-for="Name" />
+        </td>
+    </tr>
+
+</table>
+
+<div>
+    <nav>
+        <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+        <input type="submit" value="Create" />
+    </nav>
+</div>
 
 </form>
