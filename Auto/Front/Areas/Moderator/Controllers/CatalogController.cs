@@ -11,32 +11,35 @@ using System.Security.Claims;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Drawing;
+using System.IO.Abstractions;
 
 namespace Front.Areas.Cars.Controllers
 {
-	[Authorize(Roles = "Moderator")]
-	[Area("Moderator")]
-	public class CatalogController : Controller
-	{
-		private ICarsService _carsService;
+    [Authorize(Roles = "Moderator")]
+    [Area("Moderator")]
+    public class CatalogController : Controller
+    {
+        private ICarsService _carsService;
         IWebHostEnvironment _appEnvironment;
+        private readonly IFileSystem _fileSystem;
 
-        public CatalogController(ICarsService carsService, IWebHostEnvironment appEnvironment)
-		{
-			_carsService = carsService;
+        public CatalogController(ICarsService carsService, IWebHostEnvironment appEnvironment, IFileSystem fileSystem)
+        {
+            _carsService = carsService;
             _appEnvironment = appEnvironment;
+            _fileSystem = fileSystem;
         }
 
-		[HttpGet]
-		public async Task<IActionResult> Index()
-		{
-			var cars = await _carsService.GetAllCarsAsync();
-			return View(cars);
-		}
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var cars = await _carsService.GetAllCarsAsync();
+            return View(cars);
+        }
 
-		[HttpGet]
-		public async Task<IActionResult> Create()
-		{
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
             var brands = await _carsService.GetAllBrandsAsync();
             var models = await _carsService.GetAllModelsAsync();
             var colors = await _carsService.GetAllColorsAsync();
@@ -69,7 +72,7 @@ namespace Front.Areas.Cars.Controllers
                 var colors = await _carsService.GetAllColorsAsync();
                 var fotos = await _carsService.GetCarFotosAsync(id);
 
-                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance, Id = id, CarFotos = fotos });
+                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance, Id = id, Fotos = fotos });
             }
             return NotFound();
         }
@@ -111,19 +114,12 @@ namespace Front.Areas.Cars.Controllers
             return RedirectToAction("Index", "Catalog");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddFoto(int id)
-        {
-            var fotos = await _carsService.GetCarFotosAsync(id);
-            return View(new AddFotoViewModel() { CarId = id, Fotos = fotos });
-        }
-
         [HttpPost]
-        public async Task<IActionResult> AddFoto(IFormFile uploadedFile, int carId)
+        public async Task<IActionResult> AddFoto(IFormFile uploadedFile, int id)
         {
             if (uploadedFile != null)
             {
-                string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", carId.ToString());
+                string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", id.ToString());
 
                 // Создать подкаталог, если он не существует
                 if (!Directory.Exists(directoryPath))
@@ -135,25 +131,43 @@ namespace Front.Areas.Cars.Controllers
                 var extension = Path.GetExtension(uploadedFile.FileName).ToLowerInvariant();
 
                 // путь к папке Files
-                string path = $"/fotos/{carId}/{fotoGuid}{extension}";
+                string path = $"/fotos/{id}/{fotoGuid}{extension}";
                 // сохраняем файл в папку Files в каталоге wwwroot
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                Foto foto = new Foto() { Name = $"{fotoGuid}{extension}", Path = path, CarId = carId };
+                Foto foto = new Foto() { Name = $"{fotoGuid}{extension}", Path = path, CarId = id };
 
                 await _carsService.CreateFotoAsync(foto);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Catalog", new { id = id });
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteFoto(int id)
         {
+            var foto = await _carsService.GetFotoByIdAsync(id);
+            var carId = await _carsService.GetCarIdByFotoIdAsync(id);
             await _carsService.DeleteFotoAsync(id);
-            return RedirectToAction("Index", "Catalog");
+
+            string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", carId.ToString());
+
+            if (Directory.Exists(directoryPath))
+            {
+                string path = Path.Combine(_appEnvironment.WebRootPath, "fotos", carId.ToString(), foto.Name);
+
+                if (_fileSystem.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+
+            return RedirectToAction("Edit", "Catalog", new
+            {
+                id = carId
+            });
         }
     }
 }

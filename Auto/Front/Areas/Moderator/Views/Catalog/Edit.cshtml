@@ -12,6 +12,33 @@
 
 <h2>Изменить данные</h2>
 
+<div id="photoListContainer">
+    <div id="photoList">
+        @foreach (Foto foto in Model.Fotos)
+        {
+            <div>
+                <div class="photo" data-image="@foto.Path"><img src="@foto.Path"></div>
+                <nav>
+                    <form asp-action="DeleteFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="@foto.Id" />
+                        <input type="submit" value="Delete" />
+                    </form>
+                </nav>
+            </div>
+        }
+
+        <div>
+            <form asp-action="AddFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
+                <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
+                <input type="file" name="uploadedFile" accept="image/*">
+                <input type="submit" value="Upload" />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
 <form asp-action="Edit" asp-controller="Catalog" method="post" id="yourForm">
 
     <table>
@@ -20,7 +47,6 @@
             <th>Model</th>
             <th>Year</th>
             <th>Color</th>
-            <th>Fotos</th>
             <th>Distance</th>
         </tr>
 
@@ -29,59 +55,61 @@
             <td>
 
                 <select asp-for="BrandId" id="brands">
-                        @foreach (Brand brand in Model.AllBrands)
-                        {
+                    @foreach (Brand brand in Model.AllBrands)
+                    {
                         <option value="@brand.Id">@brand.Name</option>
-                        }
+                    }
                 </select>
 
             </td>
             <td>
                 <select asp-for="ModelId" id="models">
-                        @foreach (Model item in Model.AllModels)
-                        {
+                    @foreach (Model item in Model.AllModels)
+                    {
                         <option value="@item.Id">@item.Name</option>
-                        }
+                    }
                 </select>
             </td>
 
 
 
-<td>
-    <select asp-for="Year">
+            <td>
+                <select asp-for="Year">
                     @foreach (int item in Model.AllYears)
                     {
-            <option value="@item">@item</option>
+                        <option value="@item">@item</option>
                     }
-    </select>
-</td>
-<td>
-    <select asp-for="ColorId">
+                </select>
+            </td>
+            <td>
+                <select asp-for="ColorId">
                     @foreach (Color item in Model.AllColors)
                     {
-            <option value="@item.Id">@item.Name</option>
+                        <option value="@item.Id">@item.Name</option>
                     }
-    </select>
-</td>
-<td>
-    <a class="createlabel" asp-action="AddFoto" asp-route-id="@Model.Id">@($"{Model.CarFotos.Count()} fotos")</a>
-</td>
-<td>
-    <input asp-for="Distance" />
-</td>
+                </select>
+            </td>
+            <td>
+                <input asp-for="Distance" />
+            </td>
         </tr>
 
     </table>
 
-<div>
-    <nav>
-        <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
-        <input type="submit" value="Make changes" />
-    </nav>
-</div>
+    <div>
+        <nav>
+            <input type="button" onclick="goBack();" value="Back" />
+            <input type="submit" value="Make changes" />
+        </nav>
+    </div>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function goBack() {
+        window.location.href = '/Moderator/Catalog';
+    }
+</script>
 <script>
     $(document).ready(function () {
         // Обработка изменения первого select

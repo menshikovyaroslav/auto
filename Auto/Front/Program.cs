@@ -4,6 +4,7 @@ using Front.Areas.Admin.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Abstractions;
 
 namespace Front
 {
@@ -17,8 +18,9 @@ namespace Front
 
             builder.Services.AddScoped<IAccountService, AccountService>();
 			builder.Services.AddScoped<ICarsService, CarsService>();
+            builder.Services.AddSingleton<IFileSystem, FileSystem>();
 
-			string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 			builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
             builder.Services.AddIdentity<User, IdentityRole>(opts =>

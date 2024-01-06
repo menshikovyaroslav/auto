@@ -141,12 +141,23 @@ namespace Front.Areas.Admin.Services
 			return await _db.Fotos.Where(f => f.CarId == carId).ToListAsync();
         }
 
+        public async Task<int> GetCarIdByFotoIdAsync(int fotoId)
+        {
+            Foto foto = await _db.Fotos.SingleOrDefaultAsync(f => f.Id == fotoId);
+            return foto != null ? foto.CarId : 0;
+        }
+
         public async Task<Color> GetColorAsync(int id)
 		{
 			return await _db.Colors.SingleOrDefaultAsync(c => c.Id == id);
 		}
 
-		public async Task<Model> GetModelAsync(int id)
+        public async Task<Foto> GetFotoByIdAsync(int fotoId)
+        {
+            return await _db.Fotos.SingleOrDefaultAsync(f => f.Id == fotoId);
+        }
+
+        public async Task<Model> GetModelAsync(int id)
 		{
 			return await _db.Models.Include(m => m.Brand).SingleOrDefaultAsync(m => m.Id == id);
 		}

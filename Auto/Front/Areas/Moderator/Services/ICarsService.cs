@@ -33,5 +33,7 @@ namespace Front.Areas.Admin.Services
         public Task CreateFotoAsync(Foto foto);
         public Task<IEnumerable<Foto>> GetCarFotosAsync(int carId);
         public Task DeleteFotoAsync(int id);
+        public Task<int> GetCarIdByFotoIdAsync(int fotoId);
+        public Task<Foto> GetFotoByIdAsync(int fotoId);
     }
 }
