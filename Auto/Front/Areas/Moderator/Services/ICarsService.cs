@@ -31,6 +31,7 @@ namespace Front.Areas.Admin.Services
         public Task EditCarAsync(Car car);
 
         public Task CreateFotoAsync(Foto foto);
-       
+        public Task<IEnumerable<Foto>> GetCarFotosAsync(int carId);
+        public Task DeleteFotoAsync(int id);
     }
 }

@@ -68,7 +68,14 @@ namespace Front.Areas.Admin.Services
 			await _db.SaveChangesAsync();
 		}
 
-		public async Task DeleteModelAsync(int id)
+        public async Task DeleteFotoAsync(int id)
+        {
+            var foto = _db.Fotos.FirstOrDefault(f => f.Id == id);
+            _db.Fotos.Remove(foto);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task DeleteModelAsync(int id)
 		{
 			var model = _db.Models.FirstOrDefault(m => m.Id == id);
 			_db.Models.Remove(model);
@@ -129,7 +136,12 @@ namespace Front.Areas.Admin.Services
 			return await _db.Cars.Include(c => c.Color).Include(c => c.Model).SingleOrDefaultAsync(b => b.Id == id);
 		}
 
-		public async Task<Color> GetColorAsync(int id)
+        public async Task<IEnumerable<Foto>> GetCarFotosAsync(int carId)
+        {
+			return await _db.Fotos.Where(f => f.CarId == carId).ToListAsync();
+        }
+
+        public async Task<Color> GetColorAsync(int id)
 		{
 			return await _db.Colors.SingleOrDefaultAsync(c => c.Id == id);
 		}
