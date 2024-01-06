@@ -1,4 +1,5 @@
 ﻿using Front.Areas.Cars.Models;
+using Front.Areas.Moderator.ViewModels;
 
 namespace Front.Areas.Admin.Services
 {
@@ -17,6 +18,7 @@ namespace Front.Areas.Admin.Services
         public Task EditColorAsync(Color color);
 
         public Task<IEnumerable<Model>> GetAllModelsAsync();
+        public Task<IEnumerable<Model>> GetSelectedBrandModelsAsync(int brandId);
         public Task CreateModelAsync(Model model);
 		public Task DeleteModelAsync(int id);
 		public Task<Model> GetModelAsync(int id);
@@ -27,5 +29,8 @@ namespace Front.Areas.Admin.Services
         public Task DeleteCarAsync(int id);
         public Task<Car> GetCarAsync(int id);
         public Task EditCarAsync(Car car);
+
+        public Task CreateFotoAsync(Foto foto);
+       
     }
 }

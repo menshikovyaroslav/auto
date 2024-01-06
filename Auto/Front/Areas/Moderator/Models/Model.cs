@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Front.Areas.Cars.Models;
 
 namespace Front.Areas.Cars.Models
@@ -9,6 +10,7 @@ namespace Front.Areas.Cars.Models
     {
 		[Key]
 		public int Id { get; set; }
+        [JsonIgnore]
         public Brand Brand { get; set; }
         public string? Name { get; set; }
         public string? Picture { get; set; }

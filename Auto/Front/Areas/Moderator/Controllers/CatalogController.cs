@@ -1,10 +1,15 @@
 ﻿using Front.Areas.Admin.Services;
+using Front.Areas.Cars.Models;
 using Front.Areas.Moderator.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Front.Areas.Cars.Controllers
 {
@@ -13,11 +18,13 @@ namespace Front.Areas.Cars.Controllers
 	public class CatalogController : Controller
 	{
 		private ICarsService _carsService;
+        IWebHostEnvironment _appEnvironment;
 
-		public CatalogController(ICarsService carsService)
+        public CatalogController(ICarsService carsService, IWebHostEnvironment appEnvironment)
 		{
 			_carsService = carsService;
-		}
+            _appEnvironment = appEnvironment;
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> Index()
@@ -57,10 +64,10 @@ namespace Front.Areas.Cars.Controllers
             if (car != null)
             {
                 var brands = await _carsService.GetAllBrandsAsync();
-                var models = await _carsService.GetAllModelsAsync();
+                var models = await _carsService.GetSelectedBrandModelsAsync(car.Model.Brand.Id);
                 var colors = await _carsService.GetAllColorsAsync();
 
-                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance });
+                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance, Id = id });
             }
             return NotFound();
         }
@@ -89,10 +96,37 @@ namespace Front.Areas.Cars.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> UpdateModels(int brandId)
+        {
+            var models = await _carsService.GetSelectedBrandModelsAsync(brandId);
+            return Json(models);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await _carsService.DeleteCarAsync(id);
             return RedirectToAction("Index", "Catalog");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFoto(IFormFile uploadedFile)
+        {
+            if (uploadedFile != null)
+            {
+                // путь к папке Files
+                string path = "/fotos/" + uploadedFile.FileName;
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                Foto foto = new Foto() { Name = uploadedFile.FileName, Path = path };
+
+                await _carsService.CreateFotoAsync(foto);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

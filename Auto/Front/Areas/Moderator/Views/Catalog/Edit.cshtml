@@ -7,68 +7,104 @@
 
 @{
     ViewBag.Title = "Edit car";
-	Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
+    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
 <h2>Изменить данные</h2>
 
-<form asp-action="Edit" asp-controller="Catalog" method="post">
+<form asp-action="Edit" asp-controller="Catalog" method="post" id="yourForm">
 
-	<table>
-		<tr>
-			<th>Brand</th>
-			<th>Model</th>
-			<th>Year</th>
-			<th>Color</th>
-			<th>Distance</th>
-		</tr>
-
+    <table>
         <tr>
-            <td>
-                <select asp-for="BrandId">
-                    @foreach (Brand brand in Model.AllBrands)
-                    {
-                        <option value="@brand.Id">@brand.Name</option>
-                    }
-                </select>
-            </td>
-            <td>
-                <select asp-for="ModelId">
-                    @foreach (Model item in Model.AllModels)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </td>
-            <td>
-                <select asp-for="Year">
-                    @foreach (int item in Model.AllYears)
-                    {
-                        <option value="@item">@item</option>
-                    }
-                </select>
-            </td>
-            <td>
-                <select asp-for="ColorId">
-                    @foreach (Color item in Model.AllColors)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </td>
-            <td>
-                <input asp-for="Distance" />
-            </td>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Color</th>
+            <th>Fotos</th>
+            <th>Distance</th>
         </tr>
 
-	</table>
+        <tr>
 
-	<div>
-		<nav>
-			<input type="button" onclick="window.history.go(-1); return false;" value="Back" />
-			<input type="submit" value="Make changes" />
-		</nav>
-	</div>
+            <td>
+
+                <select asp-for="BrandId" id="brands">
+                        @foreach (Brand brand in Model.AllBrands)
+                        {
+                        <option value="@brand.Id">@brand.Name</option>
+                        }
+                </select>
+
+            </td>
+            <td>
+                <select asp-for="ModelId" id="models">
+                        @foreach (Model item in Model.AllModels)
+                        {
+                        <option value="@item.Id">@item.Name</option>
+                        }
+                </select>
+            </td>
+
+
+
+<td>
+    <select asp-for="Year">
+                    @foreach (int item in Model.AllYears)
+                    {
+            <option value="@item">@item</option>
+                    }
+    </select>
+</td>
+<td>
+    <select asp-for="ColorId">
+                    @foreach (Color item in Model.AllColors)
+                    {
+            <option value="@item.Id">@item.Name</option>
+                    }
+    </select>
+</td>
+<td>
+    <a class="createlabel" asp-action="Add" asp-route-id="@Model.Id">@($"{Model.CarFotos.Count()} fotos")</a>
+</td>
+<td>
+    <input asp-for="Distance" />
+</td>
+        </tr>
+
+    </table>
+
+<div>
+    <nav>
+        <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+        <input type="submit" value="Make changes" />
+    </nav>
+</div>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Обработка изменения первого select
+        $('#brands').change(function () {
+            var selectedBrandId = $(this).val();
+
+            // Выполнение AJAX-запроса для обновления списка моделей
+            $.ajax({
+                url: '/Moderator/Catalog/UpdateModels', // Замените на свой URL-адрес
+                type: 'POST',
+                data: { brandId: selectedBrandId },
+                success: function (data) {
+                    // Обновление списка моделей
+                    $('#models').empty();
+                    $.each(data, function (index, item) {
+                        $('#models').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    console.log('Ошибка при выполнении AJAX-запроса');
+                }
+            });
+        });
+    });
+</script>
 

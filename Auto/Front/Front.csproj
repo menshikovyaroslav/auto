@@ -20,6 +20,7 @@
     <Folder Include="Classes\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\fotos\" />
   </ItemGroup>
 
 </Project>

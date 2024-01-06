@@ -7,6 +7,26 @@
     Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
+<style>
+	.color-item {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
+	.color-circle {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: bold;
+		margin-right: 10px;
+	}
+</style>
+
 <h2>Cars</h2>
 <p>
 	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
@@ -29,7 +49,15 @@
 			<td>@item.Model.ToString()</td>
 			<td>@item.Year</td>
 			<td>@item.Distance</td>
-			<td>@item.Color.Name</td>
+			<td>
+
+				<div class="color-item">
+					<div class="color-circle" style="background-color: @item.Color.Name;">
+					</div>
+					<span>@item.Color.Name</span>
+				</div>
+			
+			</td>
 
 			<td>
 				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
