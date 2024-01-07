@@ -5,7 +5,7 @@ namespace Front.Models
 {
     public abstract class ViewModel
     {
-        private protected const string _errorMessage = "Поле обязательно для ввода";
+        private protected const string _errorMessage = "Required field";
 
         [Required(ErrorMessage = $"{_errorMessage}")]
         [Display(Name = "Логин:")]

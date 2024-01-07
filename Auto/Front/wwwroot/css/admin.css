@@ -18,24 +18,6 @@ p {
     margin-bottom: 20px;
 }
 
-nav {
-    background-color: #444;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-    nav a {
-        color: #fff;
-        text-decoration: none;
-        margin: 0 10px;
-        font-size: 16px;
-    }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
 table {
     width: calc(100% - 40px);
     border-collapse: collapse;
@@ -58,30 +40,6 @@ form {
     padding: 0;
     display: inline; /* чтобы кнопка "Удалить" была на той же строке, что и текст */
 }
-
-input[type="submit"] {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-}
-
-    input[type="submit"]:hover {
-        background-color: #c82333;
-    }
-
-input[type="button"] {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-}
-
-    input[type="button"]:hover {
-        background-color: #c82333;
-    }
 
 a.createlabel {
     /* Ваши стили для ссылок с классом createlabel */
@@ -129,7 +87,7 @@ input {
 
 #photoList {
     display: flex;
-    gap: 10px; /* расстояние между фотографиями */
+    gap: 1px; /* расстояние между фотографиями */
 }
 
 .photo {
@@ -137,6 +95,7 @@ input {
     height: 100px; /* устанавливаем высоту каждой фотографии */
     overflow: hidden; /* предотвращает растягивание изображения */
     cursor: pointer;
+    margin-bottom: 1px;
 }
 
     .photo img {
@@ -145,11 +104,6 @@ input {
         object-fit: cover; /* сохраняет соотношение сторон изображения и заполняет контейнер */
     }
 
-.alert-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 1rem;
-    border-radius: 0.25rem;
+.form-group {
+    margin-bottom: 10px;
 }

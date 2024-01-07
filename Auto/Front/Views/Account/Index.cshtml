@@ -2,8 +2,20 @@
 
 @model User
 @{
+    var error = TempData["Error"] as string;
+    var info = TempData["Info"] as string;
     ViewBag.Title = "Home";
     Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert-danger">@error</div>
+}
+
+@if (!string.IsNullOrEmpty(info))
+{
+    <div class="alert-info">@info</div>
 }
 
 <h2>Home</h2>

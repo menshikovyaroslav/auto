@@ -68,13 +68,11 @@
             </div>
         }
 
-        
-
         <div>
             <form asp-action="AddFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
                 <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
                 <input type="file" name="uploadedFile" accept="image/*">
-                <input type="submit" value="Upload" />
+                <input type="submit" value="Upload" /> 
             </form>
         </div>
 
@@ -132,7 +130,7 @@
                 </select>
             </td>
             <td>
-                <input asp-for="Distance" />
+                <input asp-for="Distance" min="0" step="1" max="10000000" />
             </td>
         </tr>
 

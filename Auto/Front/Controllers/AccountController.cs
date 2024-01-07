@@ -34,30 +34,11 @@ namespace Front.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> ChangePasswordAsync(string OldPassword, string NewPassword)
-		{
-			var errors = string.Empty;
-
-			var result = await _accountService.ChangePasswordAsync(User.Identity.Name, OldPassword, NewPassword);
-
-			if (result.Succeeded)
-			{
-				return Ok("Вы успешно сменили пароль.");
-			}
-			else
-			{
-				//ModelState.AddModelError(string.Empty, "Неверный пароль");
-				//foreach (var error in result.Errors)
-				//{
-				//    errors += $"{error.Description}<br>";
-				//}
-				errors += "Неверный пароль";
-			}
-
-			return Content(errors);
-		}
-
+        [HttpGet]
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> About()
@@ -108,7 +89,8 @@ namespace Front.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", "Неверный логин и (или) пароль");
+                    TempData["Error"] = "Error. Bad login or pass.";
+                    //ModelState.AddModelError("", "Неверный логин и (или) пароль");
 				}
 			}
 
@@ -163,5 +145,60 @@ namespace Front.Controllers
 			}
 			return View(model);
 		}
-	}
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _accountService.GetUserByEmailAsync(model.Email);
+                if (user == null)
+				{
+                    TempData["Error"] = "Error. Unknown email.";
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+				if (model.NewPassword1 != model.NewPassword2)
+				{
+					TempData["Error"] = "New passwords don't match";
+                    return View(model);
+                }
+
+                if (string.IsNullOrEmpty(model.OldPassword))
+                {
+                    TempData["Error"] = "Empty old password";
+                    return View(model);
+                }
+
+                if (string.IsNullOrEmpty(model.NewPassword1))
+                {
+                    TempData["Error"] = "Empty new password";
+                    return View(model);
+                }
+
+                var user = await _accountService.GetUserByPrincipal(User);
+                var result = await _accountService.ChangePassword(user, model.OldPassword, model.NewPassword1);
+
+                if (result.Succeeded)
+                {
+                    TempData["Info"] = "Password changed";
+                    return RedirectToAction("Index", "Account");
+                }
+                else
+                {
+                    TempData["Error"] = "Password not changed";
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+    }
 }

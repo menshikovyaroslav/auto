@@ -2,6 +2,7 @@
 using Front.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Front.Areas.Admin.Services
 {
@@ -47,5 +48,20 @@ namespace Front.Areas.Admin.Services
 
 			return result;
 		}
-	}
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<User> GetUserByPrincipal(ClaimsPrincipal principal)
+        {
+            return await _userManager.GetUserAsync(principal);
+        }
+
+        public async Task<IdentityResult> ChangePassword(User user, string oldPassword, string newPassword)
+        {
+			return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+    }
 }

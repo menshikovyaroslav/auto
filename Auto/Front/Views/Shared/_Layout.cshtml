@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -19,29 +21,31 @@
 
             @if (!User.Identity.IsAuthenticated)
             {
-                <a href="/account/login">Sign in</a>
-            }
-
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <a href="/account/register">Register</a>
+                <a href="/account/login"><i class="fas fa-sign-in-alt"></i>Sign in</a>
+                <a href="/account/register"><i class="fas fa-user-plus"></i>Register</a>
             }
 
             @if (User.IsInRole("Admin"))
             {
-                <a href="/admin">Admin</a>
+                <a href="/admin"><i class="fas fa-user-cog"></i>Admin</a>
             }
 
             @if (User.IsInRole("Moderator"))
             {
-                <a href="/moderator/catalog">Moderator</a>
+                <a href="/moderator/catalog"><i class="fas fa-toolbox"></i>Moderator</a>
             }
 
-            <a href="/account/about">About</a>
+            <a href="/account/about"><i class="fas fa-info-circle"></i>About</a>
 
             @if (User.Identity.IsAuthenticated)
             {
-                <a href="/account/logout">Logout(@User.Identity.Name)</a>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-user"></i>@User.Identity.Name</button>
+                    <div class="dropdown-content">
+                        <a href="/account/changepassword"><i class="fas fa-lock"></i>Change password</a>
+                        <a href="/account/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                    </div>
+                </div>
             }
 
             <div class="animation start-home"></div>

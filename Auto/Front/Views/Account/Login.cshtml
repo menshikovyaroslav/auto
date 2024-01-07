@@ -1,10 +1,23 @@
 ﻿@model Front.ViewModels.LoginViewModel
 
 @{
+    ViewBag.Title = "Login";
+    var error = TempData["Error"] as string;
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Страница авторизации</h2>
+<script>
+    function goBack() {
+        window.location.href = '/Account/ForgotPassword';
+    }
+</script>
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert-danger">@error</div>
+}
+
+<h2>Login</h2>
 <form method="post" asp-controller="Account" asp-action="Login">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
@@ -17,5 +30,8 @@
         <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
-    <input type='submit' value='Авторизоваться' />
+    <div class="authbuttons">
+        <input type="button" onclick="goBack()" value="Forgot your password?" />
+        <input type="submit" value="Login" />
+    </div>
 </form>

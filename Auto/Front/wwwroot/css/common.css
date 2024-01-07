@@ -1,0 +1,64 @@
+﻿nav {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 16px;
+        padding: 8px;
+    }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+    nav i {
+        margin-right: 8px; /* Отступ между иконкой и текстом */
+    }
+
+input[type="submit"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: #c82333;
+    }
+
+input[type="button"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+    input[type="button"]:hover {
+        background-color: #c82333;
+    }
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+.alert-info {
+    color: #721c24;
+    background-color: #39bf39;
+    border: 1px solid #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
