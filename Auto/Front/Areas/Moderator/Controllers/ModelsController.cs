@@ -54,7 +54,14 @@ namespace Front.Areas.Cars.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await _carsService.DeleteModelAsync(id);
+			var canDeleteModel = await _carsService.CanDeleteModelAsync(id);
+			if (!canDeleteModel)
+			{
+				TempData["Error"] = "Error. Cannot delete with relations.";
+				return RedirectToAction("Index", "Models");
+			}
+
+			await _carsService.DeleteModelAsync(id);
             return RedirectToAction("Index", "Models");
         }
 

@@ -50,6 +50,12 @@ namespace Front.Areas.Cars.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var canDeleteBrand = await _carsService.CanDeleteBrandAsync(id);
+            if (!canDeleteBrand)
+            {
+				TempData["Error"] = "Error. Cannot delete with relations.";
+				return RedirectToAction("Index", "Brands");
+            }
             await _carsService.DeleteBrandAsync(id);
             return RedirectToAction("Index", "Brands");
         }

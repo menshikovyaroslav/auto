@@ -144,3 +144,12 @@ input {
         height: 100%; /* устанавливает высоту изображения в 100% от родительского контейнера */
         object-fit: cover; /* сохраняет соотношение сторон изображения и заполняет контейнер */
     }
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}

@@ -17,6 +17,24 @@ namespace Front.Areas.Admin.Services
 			_db = db;
 		}
 
+        public async Task<bool> CanDeleteBrandAsync(int id)
+        {
+            var hasModels = await _db.Models.AnyAsync(m => m.Brand.Id == id);
+            return !hasModels;
+        }
+
+		public async Task<bool> CanDeleteColorAsync(int id)
+		{
+			var hasCars = await _db.Cars.AnyAsync(c => c.Color.Id == id);
+			return !hasCars;
+		}
+
+		public async Task<bool> CanDeleteModelAsync(int id)
+		{
+			var hasCars = await _db.Cars.AnyAsync(c => c.Model.Id == id);
+			return !hasCars;
+		}
+
 		public async Task CreateBrandAsync(string name)
 		{
 			_db.Brands.Add(new Brand { Name = name });

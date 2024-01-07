@@ -10,6 +10,47 @@
     Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.photo').click(function () {
+            var imageUrl = $(this).data('image');
+            $('#imageModal').find('.modal-body img').attr('src', imageUrl);
+            $('#imageModal').modal('show');
+        });
+
+        // Обработка изменения первого select
+        $('#brands').change(function () {
+            var selectedBrandId = $(this).val();
+
+            // Выполнение AJAX-запроса для обновления списка моделей
+            $.ajax({
+                url: '/Moderator/Catalog/UpdateModels', // Замените на свой URL-адрес
+                type: 'POST',
+                data: { brandId: selectedBrandId },
+                success: function (data) {
+                    // Обновление списка моделей
+                    $('#models').empty();
+                    $.each(data, function (index, item) {
+                        $('#models').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+                error: function () {
+                    console.log('Ошибка при выполнении AJAX-запроса');
+                }
+            });
+        });
+    });
+
+    function goBack() {
+        window.location.href = '/Moderator/Catalog';
+    }
+</script>
+
 <h2>Изменить данные</h2>
 
 <div id="photoListContainer">
@@ -27,6 +68,8 @@
             </div>
         }
 
+        
+
         <div>
             <form asp-action="AddFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
                 <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
@@ -37,7 +80,6 @@
 
     </div>
 </div>
-
 
 <form asp-action="Edit" asp-controller="Catalog" method="post" id="yourForm">
 
@@ -104,35 +146,21 @@
     </div>
 </form>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    function goBack() {
-        window.location.href = '/Moderator/Catalog';
-    }
-</script>
-<script>
-    $(document).ready(function () {
-        // Обработка изменения первого select
-        $('#brands').change(function () {
-            var selectedBrandId = $(this).val();
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Enlarged image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="" alt="Enlarged Photo" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
 
-            // Выполнение AJAX-запроса для обновления списка моделей
-            $.ajax({
-                url: '/Moderator/Catalog/UpdateModels', // Замените на свой URL-адрес
-                type: 'POST',
-                data: { brandId: selectedBrandId },
-                success: function (data) {
-                    // Обновление списка моделей
-                    $('#models').empty();
-                    $.each(data, function (index, item) {
-                        $('#models').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    console.log('Ошибка при выполнении AJAX-запроса');
-                }
-            });
-        });
-    });
-</script>
+
 

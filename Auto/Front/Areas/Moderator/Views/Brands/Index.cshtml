@@ -2,9 +2,15 @@
 
 @model IEnumerable<Brand> // Данные, с кот. работает вьюха.
 
-@{
+@{	
+	var error = TempData["Error"] as string;
 	ViewBag.Title = "Brands";
 	Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+	<div class="alert-danger">@error</div>
 }
 
 <h2>Brands</h2>
