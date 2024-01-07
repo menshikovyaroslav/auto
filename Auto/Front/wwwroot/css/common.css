@@ -62,3 +62,16 @@ input[type="button"] {
     margin-bottom: 1rem;
     border-radius: 0.25rem;
 }
+
+.logo {
+    margin-left: 20px;
+}
+
+.logoimage {
+    text-align: center;
+}
+
+    .logoimage img {
+        display: inline-block;
+        width: 40px;
+    }

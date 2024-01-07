@@ -2,44 +2,49 @@
 
 @model IEnumerable<Brand> // Данные, с кот. работает вьюха.
 
-@{	
-	var error = TempData["Error"] as string;
-	ViewBag.Title = "Brands";
-	Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
+@{
+    var error = TempData["Error"] as string;
+    ViewBag.Title = "Brands";
+    Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
 @if (!string.IsNullOrEmpty(error))
 {
-	<div class="alert-danger">@error</div>
+    <div class="alert-danger">@error</div>
 }
 
 <h2>Brands</h2>
 <p>
-	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
-	<a class="createlabel" asp-action="Create">Create new brand</a>
+    @*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
+    <a class="createlabel" asp-action="Create">Create new brand</a>
 </p>
 <table>
-	<tr>
-		<th>Name</th>
-		<th>Edit</th>
-		<th>Delete</th>
-	</tr>
-	@foreach (var item in Model)
-	{
-		<tr>
-			<td>@item.Name</td>
+    <tr>
+        <th>Name</th>
+        <th>Logo</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
 
-			<td>
-				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
-			asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
-			*@
-				<a class="editlabel" asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Изменить</a>
-			</td>
-			<td>
-				<form asp-action="Delete" method="post" asp-route-id="@item.Id">
-					<input type="submit" value="Удалить" />
-				</form>
-			</td>
-		</tr>
-	}
+            <td>
+                <div class="logoimage"><img src="@item.Logo"></div>
+            </td>
+
+            <td>
+                @*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
+            asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
+            *@
+                <a class="editlabel" asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Изменить</a>
+            </td>
+            <td>
+                <form asp-action="Delete" method="post" asp-route-id="@item.Id">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
 </table>

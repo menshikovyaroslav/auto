@@ -1,6 +1,7 @@
 ﻿using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
 using Front.Areas.Admin.ViewModels;
+using Front.Areas.Cars.Models;
 using Front.Areas.Moderator.ViewModels;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -17,11 +18,13 @@ namespace Front.Areas.Cars.Controllers
 	public class BrandsController : Controller
 	{
 		private ICarsService _carsService;
+        IWebHostEnvironment _appEnvironment;
 
-		public BrandsController(ICarsService carsService)
+        public BrandsController(ICarsService carsService, IWebHostEnvironment appEnvironment)
 		{
 			_carsService = carsService;
-		}
+            _appEnvironment = appEnvironment;
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> Index()
@@ -66,7 +69,7 @@ namespace Front.Areas.Cars.Controllers
             var brand = await _carsService.GetBrandAsync(id);
             if (brand != null)
             {
-                return View(new EditBrandViewModel() { Id = brand.Id, Name = brand.Name });
+                return View(new EditBrandViewModel() { Id = brand.Id, Name = brand.Name, Logo = brand.Logo });
             }
             return NotFound();
         }
@@ -83,6 +86,33 @@ namespace Front.Areas.Cars.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLogo(IFormFile uploadedFile, int id)
+        {
+            if (uploadedFile != null)
+            {
+                string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "logos");
+
+                // Создать подкаталог, если он не существует
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                var extension = Path.GetExtension(uploadedFile.FileName).ToLowerInvariant();
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + "/logos/" + $"{id}{extension}", FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+
+                var brand = await _carsService.GetBrandAsync(id);
+                brand.Logo = $"/logos/{id}{extension}";
+                await _carsService.EditBrandAsync(brand);
+            }
+
+            return RedirectToAction("Edit", "Brands", new { id = id });
         }
     }
 }

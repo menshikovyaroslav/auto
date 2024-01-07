@@ -34,7 +34,7 @@
 </p>
 <table>
 	<tr>
-		<th>Id</th>
+		<th>Logo</th>
 		<th>Model</th>
 		<th>Year</th>
 		<th>Distance</th>
@@ -45,7 +45,10 @@
 	@foreach (var item in Model)
 	{
 		<tr>
-			<td>@item.Id</td>
+			<td>
+				<div class="logoimage"><img src="@item.Model.Brand.Logo"></div>
+			</td>
+
 			<td>@item.Model.ToString()</td>
 			<td>@item.Year</td>
 			<td>@item.Distance</td>

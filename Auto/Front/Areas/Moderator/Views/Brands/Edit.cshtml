@@ -9,7 +9,24 @@
     Layout = "/Areas/Moderator/Views/Shared/_ModeratorLayout.cshtml";
 }
 
+<script>
+    function goBack() {
+        window.location.href = '/Moderator/Brands';
+    }
+</script>
+
 <h2>Изменить данные</h2>
+
+<div class="logo">
+    <div class="photo" data-image="@Model.Logo"><img src="@Model.Logo"></div>
+
+    <form asp-action="AddLogo" asp-controller="Brands" method="post" enctype="multipart/form-data">
+        <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
+        <input type="file" name="uploadedFile" accept="image/*">
+        <input type="submit" value="Upload" />
+    </form>
+</div>
+
 
 <form asp-action="Edit" asp-controller="Brands" method="post">
 
@@ -27,7 +44,7 @@
 
     <div>
         <nav>
-            <input type="button" onclick="window.history.go(-1); return false;" value="Back" />
+            <input type="button" onclick="goBack();" value="Back" />
             <input type="submit" value="Make changes" />
         </nav>
     </div>
