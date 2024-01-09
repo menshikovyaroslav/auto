@@ -1,4 +1,5 @@
-﻿using Front.Areas.Admin.Models;
+﻿using Dom.Extensions;
+using Front.Areas.Admin.Models;
 using Front.Areas.Cars.Models;
 using Front.Areas.Moderator.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,19 +20,22 @@ namespace Front.Areas.Admin.Services
 
         public async Task<bool> CanDeleteBrandAsync(int id)
         {
-            var hasModels = await _db.Models.AnyAsync(m => m.Brand.Id == id);
+            var hasModels = await _db.Models
+				.AnyAsync(m => m.Brand.Id == id);
             return !hasModels;
         }
 
 		public async Task<bool> CanDeleteColorAsync(int id)
 		{
-			var hasCars = await _db.Cars.AnyAsync(c => c.Color.Id == id);
+			var hasCars = await _db.Cars
+				.AnyAsync(c => c.Color.Id == id);
 			return !hasCars;
 		}
 
 		public async Task<bool> CanDeleteModelAsync(int id)
 		{
-			var hasCars = await _db.Cars.AnyAsync(c => c.Model.Id == id);
+			var hasCars = await _db.Cars
+				.AnyAsync(c => c.Model.Id == id);
 			return !hasCars;
 		}
 
@@ -67,35 +71,35 @@ namespace Front.Areas.Admin.Services
 
 		public async Task DeleteBrandAsync(int id)
 		{
-			var brand = _db.Brands.FirstOrDefault(b => b.Id == id);
+			var brand = await _db.Brands.FirstOrDefaultAsync(b => b.Id == id);
 			_db.Brands.Remove(brand);
 			await _db.SaveChangesAsync();
 		}
 
 		public async Task DeleteCarAsync(int id)
 		{
-			var car = _db.Cars.FirstOrDefault(b => b.Id == id);
+			var car = await _db.Cars.FirstOrDefaultAsync(b => b.Id == id);
 			_db.Cars.Remove(car);
 			await _db.SaveChangesAsync();
 		}
 
 		public async Task DeleteColorAsync(int id)
 		{
-			var color = _db.Colors.FirstOrDefault(c => c.Id == id);
+			var color = await _db.Colors.FirstOrDefaultAsync(c => c.Id == id);
 			_db.Colors.Remove(color);
 			await _db.SaveChangesAsync();
 		}
 
         public async Task DeleteFotoAsync(int id)
         {
-            var foto = _db.Fotos.FirstOrDefault(f => f.Id == id);
+            var foto = await _db.Fotos.FirstOrDefaultAsync(f => f.Id == id);
             _db.Fotos.Remove(foto);
             await _db.SaveChangesAsync();
         }
 
         public async Task DeleteModelAsync(int id)
 		{
-			var model = _db.Models.FirstOrDefault(m => m.Id == id);
+			var model = await _db.Models.FirstOrDefaultAsync(m => m.Id == id);
 			_db.Models.Remove(model);
 			await _db.SaveChangesAsync();
 		}
@@ -126,37 +130,71 @@ namespace Front.Areas.Admin.Services
 
 		public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
 		{
-			return await _db.Brands.Include(b => b.Models).OrderBy(b => b.Name).ToListAsync();
+			return await _db.Brands
+				.Include(b => b.Models)
+				.OrderBy(b => b.Name)
+				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Car>> GetAllCarsAsync()
 		{
-			return await _db.Cars.Include(m => m.Model).Include(c => c.Color).Include(m => m.Model.Brand).ToListAsync();
+			return await _db.Cars
+				.Include(m => m.Model)
+				.Include(c => c.Color)
+				.Include(m => m.Model.Brand)
+				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Color>> GetAllColorsAsync()
+        public IEnumerable<Car> GetFilteredCarsAsync(string[] searchBrandIds)
+        {
+            List<Car> filteredCars = new List<Car>();
+
+            if (searchBrandIds != null)
+			{
+				foreach (var s in searchBrandIds)
+				{
+					var carsInCondition = _db.Cars.Where(c => c.Model.Brand.Id == s.ToInt());
+                    filteredCars.AddRange(carsInCondition);
+                }
+
+			}
+
+			return filteredCars;
+        }
+
+        public async Task<IEnumerable<Color>> GetAllColorsAsync()
 		{
 			return await _db.Colors.OrderBy(c => c.Name).ToListAsync();
 		}
 
 		public async Task<IEnumerable<Model>> GetAllModelsAsync()
 		{
-			return await _db.Models.Include(m => m.Brand).OrderBy(m => m.Brand.Name).ThenBy(m => m.Name).ToListAsync();
+			return await _db.Models
+				.Include(m => m.Brand)
+				.OrderBy(m => m.Brand.Name)
+				.ThenBy(m => m.Name).ToListAsync();
 		}
 
 		public async Task<Brand> GetBrandAsync(int id)
 		{
-			return await _db.Brands.Include(b => b.Models).SingleOrDefaultAsync(b => b.Id == id);
+			return await _db.Brands
+				.Include(b => b.Models)
+				.SingleOrDefaultAsync(b => b.Id == id);
 		}
 
 		public async Task<Car> GetCarAsync(int id)
 		{
-			return await _db.Cars.Include(c => c.Color).Include(c => c.Model).SingleOrDefaultAsync(b => b.Id == id);
+			return await _db.Cars
+				.Include(c => c.Color)
+				.Include(c => c.Model)
+				.SingleOrDefaultAsync(b => b.Id == id);
 		}
 
         public async Task<IEnumerable<Foto>> GetCarFotosAsync(int carId)
         {
-			return await _db.Fotos.Where(f => f.CarId == carId).ToListAsync();
+			return await _db.Fotos
+				.Where(f => f.CarId == carId)
+				.ToListAsync();
         }
 
         public async Task<int> GetCarIdByFotoIdAsync(int fotoId)
@@ -177,7 +215,9 @@ namespace Front.Areas.Admin.Services
 
         public async Task<Model> GetModelAsync(int id)
 		{
-			return await _db.Models.Include(m => m.Brand).SingleOrDefaultAsync(m => m.Id == id);
+			return await _db.Models
+				.Include(m => m.Brand)
+				.SingleOrDefaultAsync(m => m.Id == id);
 		}
 
 		//public async Task<EditCarViewModel> GetSelectedBrandModelsAsync(EditCarViewModel model)

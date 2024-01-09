@@ -1,12 +1,105 @@
 ﻿@using Front.Areas.Admin.Models;
 
-@model User
+@model Front.ViewModels.HomeViewModel;
 @{
     var error = TempData["Error"] as string;
     var info = TempData["Info"] as string;
     ViewBag.Title = "Home";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+<!-- Подключение библиотек jQuery и jQuery UI -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".draggable-item").draggable({
+            revert: "invalid",
+            cursor: "move",
+        });
+
+        var droppedItemsIds = [];
+
+        $(".droppable-area-stakan").droppable({
+            accept: ".draggable-item", // определение, какие элементы можно бросать в область
+            drop: function (event, ui) {
+                // Обработка события бросания элемента
+                // ui.helper содержит информацию о брошенном элементе
+                // event содержит информацию о событии
+
+                var droppedItem = ui.helper;
+
+                // Выполняем необходимые действия
+                // Например, можно получить идентификатор брошенного элемента
+                var droppedItemId = droppedItem.data("id");
+
+                if (droppedItemsIds.indexOf(droppedItemId) === -1) {
+                    // Добавляем идентификатор в массив
+                    droppedItemsIds.push(droppedItemId);
+
+                    //Пример: вы можете отправить запрос на сервер для обновления данных
+                    $.ajax({
+                        url: "/Account/Index",
+                        type: "POST",
+                        data: { brandIds: droppedItemsIds },
+                        success: function (data) {
+                            // Обработка успешного завершения запроса
+                        },
+                        error: function (error) {
+                            // Обработка ошибок запроса
+                        }
+                    });
+
+                }
+
+            }
+        });
+
+        $(".droppable-area-brands").droppable({
+            accept: ".draggable-item", // определение, какие элементы можно бросать в область
+            drop: function (event, ui) {
+                // Обработка события бросания элемента
+                // ui.helper содержит информацию о брошенном элементе
+                // event содержит информацию о событии
+
+                var droppedItem = ui.helper;
+
+                // Выполняем необходимые действия
+                // Например, можно получить идентификатор брошенного элемента
+                var droppedItemId = droppedItem.data("id");
+
+                var index = droppedItemsIds.indexOf(droppedItemId);
+
+                if (index === -1) {
+                } else {
+                    // Если элемент уже присутствует в массиве, удаляем его
+                    droppedItemsIds.splice(index, 1);
+
+                    //Пример: вы можете отправить запрос на сервер для обновления данных
+                    $.ajax({
+                        url: "/Account/Index",
+                        type: "POST",
+                        data: { brandIds: droppedItemsIds },
+                        success: function (data) {
+                            // Обработка успешного завершения запроса
+                        },
+                        error: function (error) {
+                            // Обработка ошибок запроса
+                        }
+                    });
+
+                }
+
+            }
+        });
+    });
+
+
+</script>
+
 
 @if (!string.IsNullOrEmpty(error))
 {
@@ -19,3 +112,14 @@
 }
 
 <h2>Home</h2>
+
+<div class="brandlogos droppable-area-brands">
+    @foreach (var brand in Model.Brands)
+    {
+        <div data-id="@brand.Id" class="logoimage draggable-item"><img src="@brand.Logo"></div>
+    }
+</div>
+
+<div class="stakancontainer">
+    <div class="stakan droppable-area-stakan"><img src="/images/stakan.png"></div>
+</div>

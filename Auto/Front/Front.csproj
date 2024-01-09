@@ -24,4 +24,8 @@
     <Folder Include="wwwroot\fotos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Libs\Dom\Dom.csproj" />
+  </ItemGroup>
+
 </Project>

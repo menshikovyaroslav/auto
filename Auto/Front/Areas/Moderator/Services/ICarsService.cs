@@ -28,7 +28,8 @@ namespace Front.Areas.Admin.Services
 		public Task<bool> CanDeleteModelAsync(int id);
 
 		public Task<IEnumerable<Car>> GetAllCarsAsync();
-		public Task CreateCarAsync(Car car);
+        public IEnumerable<Car> GetFilteredCarsAsync(string[] searchBrandIds);
+        public Task CreateCarAsync(Car car);
         public Task DeleteCarAsync(int id);
         public Task<Car> GetCarAsync(int id);
         public Task EditCarAsync(Car car);
