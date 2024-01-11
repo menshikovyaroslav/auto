@@ -1,0 +1,44 @@
+﻿.brandlogos {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #444;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.logoimage {
+    margin-bottom: 10px;
+}
+
+    .logoimage img {
+        width: 60px;
+    }
+
+.carscontainer {
+    flex: 1;
+    background-color: #e0e0e0;
+}
+
+.stakancontainer {
+    text-align: center;
+}
+
+.stakan {
+    text-align: center;
+    display: inline-block;
+    align-items: center;
+}
+
+    .stakan img {
+        display: inline-block;
+        align-items: center;
+        width: 300px;
+    }
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 10px;
+    height: 80vh;
+}

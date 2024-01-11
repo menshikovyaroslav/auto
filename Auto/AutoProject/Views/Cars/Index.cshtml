@@ -5,8 +5,9 @@
     var error = TempData["Error"] as string;
     var info = TempData["Info"] as string;
     ViewBag.Title = "Home";
-    Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+<link rel="stylesheet" href="~/css/cars/index.css" asp-append-version="true" />
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -94,54 +95,6 @@
     });
 
 </script>
-
-<style>
-    .brandlogos {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid #444;
-        background-color: #f0f0f0;
-        padding: 20px;
-    }
-
-    .logoimage {
-        margin-bottom: 10px;
-    }
-
-        .logoimage img {
-            width: 60px;
-        }
-
-    .carscontainer {
-        flex: 1;
-        background-color: #e0e0e0;
-    }
-
-    .stakancontainer {
-        text-align: center;
-    }
-
-    .stakan {
-        text-align: center;
-        display: inline-block;
-        align-items: center;
-    }
-
-        .stakan img {
-            display: inline-block;
-            align-items: center;
-            width: 300px;
-        }
-
-    .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-        padding: 10px;
-        height: 80vh;
-    }
-
-</style>
 
 @if (!string.IsNullOrEmpty(error))
 {
