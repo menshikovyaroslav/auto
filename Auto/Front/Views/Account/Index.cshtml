@@ -85,6 +85,21 @@
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
                             // Обработка успешного завершения запроса
+                            $(".carscontainer table tbody").empty();
+
+                            // Перебираем данные и добавляем строки в таблицу
+                            $.each(data, function (index, item) {
+                                // Создаем новую строку
+                                var newRow = $("<tr>");
+
+                                // Добавляем ячейки с данными
+                                $("<td>").text(item.Model.Brand.Name).appendTo(newRow);
+                                $("<td>").text(item.year).appendTo(newRow);
+
+                                // Добавляем строку в таблицу
+                                $(".carscontainer table tbody").append(newRow);
+                            });
+
                         },
                         error: function (error) {
                             // Обработка ошибок запроса
@@ -100,6 +115,54 @@
 
 </script>
 
+<style>
+    .brandlogos {
+        display: flex;
+        flex-direction: column; /* Это устанавливает направление flex контейнера на вертикальное */
+        border: 1px solid #444;
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+
+    .logoimage {
+        margin-bottom: 10px; /* Пример отступа между изображениями (по вашему желанию) */
+    }
+
+        .logoimage img {
+            width: 60px;
+            /* Дополнительные стили для изображения (по вашему желанию) */
+        }
+
+    .carscontainer {
+        flex: 1;
+        background-color: #e0e0e0;
+    }
+
+    .stakancontainer {
+        text-align: center;
+    }
+
+    .stakan {
+        text-align: center;
+        display: inline-block;
+        align-items: center;
+    }
+
+        .stakan img {
+            display: inline-block;
+            align-items: center;
+            width: 300px;
+        }
+
+    .container {
+        display: flex;
+        justify-content: space-between; /* Распределение элементов по горизонтали с равным пространством между ними */
+        align-items: stretch; /* Выравнивание элементов по центру по вертикали */
+        padding: 10px;
+        height: 80vh;
+    }
+
+</style>
 
 @if (!string.IsNullOrEmpty(error))
 {
@@ -113,13 +176,25 @@
 
 <h2>Home</h2>
 
-<div class="brandlogos droppable-area-brands">
-    @foreach (var brand in Model.Brands)
-    {
-        <div data-id="@brand.Id" class="logoimage draggable-item"><img src="@brand.Logo"></div>
-    }
-</div>
+<div class="container">
+    <div class="brandlogos droppable-area-brands">
+        @foreach (var brand in Model.Brands)
+        {
+            <div data-id="@brand.Id" class="logoimage draggable-item"><img src="@brand.Logo"></div>
+        }
+    </div>
+    <div class="stakancontainer">
+        <div class="stakan droppable-area-stakan"><img src="/images/stakan.png"></div>
+    </div>
+    <div class="carscontainer">
+        <table>
+            <tr>
+                <th>Car</th>
+                <th>Email</th>
+            </tr>
 
-<div class="stakancontainer">
-    <div class="stakan droppable-area-stakan"><img src="/images/stakan.png"></div>
+
+
+        </table>
+    </div>
 </div>

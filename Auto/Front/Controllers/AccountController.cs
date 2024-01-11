@@ -218,8 +218,8 @@ namespace Front.Controllers
             brands = await _carsService.GetAllBrandsAsync();
             cars = _carsService.GetFilteredCarsAsync(brandIds);
 
-            var model = new HomeViewModel() { Brands = brands, Cars = cars };
-            return View(model);
+            //var model = new HomeViewModel() { Brands = brands, Cars = cars };
+            return View(cars);
 
 
             //var jsonObject = JsonSerializer.Deserialize<JsonObject>(brandId.FromBase64());

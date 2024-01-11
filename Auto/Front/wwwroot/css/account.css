@@ -107,20 +107,6 @@ input[type="submit"] {
     display: block;
 }
 
-.stakancontainer {
-    text-align: center;
-}
-
-.stakan {
-    text-align: center;
-    display: inline-block;
-}
-
-    .stakan img {
-        display: inline-block;
-        width: 300px;
-    }
-
 .brandlogos {
     display: flex;
 }
