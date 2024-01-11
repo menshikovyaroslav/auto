@@ -25,7 +25,13 @@
 	@foreach (var item in Model)
 	{
 		<tr>
-			<td>@item.Name</td>
+			<td>
+				<div class="color-item">
+					<div class="color-circle" style="background-color: @item.Name;">
+					</div>
+					<span>@item.Name</span>
+				</div>
+			</td>
 
 			<td>
 				<a class="editlabel" asp-action="Edit" asp-controller="Colors" asp-route-id="@item.Id">Изменить</a>
