@@ -41,15 +41,47 @@
                     droppedItemsIds.push(droppedItemId);
 
                     //Пример: вы можете отправить запрос на сервер для обновления данных
+         
                     $.ajax({
-                        url: "/Account/Index",
+                        url: "/Home/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
-                            // Обработка успешного завершения запроса
+                            // Check if data is an object and has the expected structure
+                            if (data && data.cars && Array.isArray(data.cars)) {
+                                // Clear the table body
+                                $(".carscontainer table tbody").empty();
+
+                                console.log("x0");
+
+                                // Iterate over the Cars property of HomeViewModel
+                                $.each(data.cars, function (carIndex, car) {
+
+                                    console.log("x1");
+                                    
+
+                                    var newRow = $("<tr>");
+
+                                    console.log("x2");
+
+                                    // Add cells with data
+                                    // Uncomment if needed: $("<td>").text(car.Model.Brand.Name).appendTo(newRow);
+                                    $("<td>").text(car.year).appendTo(newRow);
+
+                                    console.log("x3");
+
+                                    // Add the row to the table
+                                    $(".carscontainer table tbody").append(newRow);
+
+                                    console.log("x4");
+                                });
+                            } else {
+                                console.log(data);
+                                console.log("Unexpected data structure received from the server");
+                            }
                         },
                         error: function (error) {
-                            // Обработка ошибок запроса
+                            // Handle AJAX request errors
                         }
                     });
 
@@ -80,29 +112,45 @@
 
                     //Пример: вы можете отправить запрос на сервер для обновления данных
                     $.ajax({
-                        url: "/Account/Index",
+                        url: "/Home/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
-                            // Обработка успешного завершения запроса
-                            $(".carscontainer table tbody").empty();
+                            // Check if data is an object and has the expected structure
+                            if (data && data.cars && Array.isArray(data.cars)) {
+                                // Clear the table body
+                                $(".carscontainer table tbody").empty();
 
-                            // Перебираем данные и добавляем строки в таблицу
-                            $.each(data, function (index, item) {
-                                // Создаем новую строку
-                                var newRow = $("<tr>");
+                                console.log("x0");
 
-                                // Добавляем ячейки с данными
-                                $("<td>").text(item.Model.Brand.Name).appendTo(newRow);
-                                $("<td>").text(item.year).appendTo(newRow);
+                                // Iterate over the Cars property of HomeViewModel
+                                $.each(data.cars, function (carIndex, car) {
 
-                                // Добавляем строку в таблицу
-                                $(".carscontainer table tbody").append(newRow);
-                            });
+                                    console.log("x1");
 
+
+                                    var newRow = $("<tr>");
+
+                                    console.log("x2");
+
+                                    // Add cells with data
+                                    // Uncomment if needed: $("<td>").text(car.Model.Brand.Name).appendTo(newRow);
+                                    $("<td>").text(car.year).appendTo(newRow);
+
+                                    console.log("x3");
+
+                                    // Add the row to the table
+                                    $(".carscontainer table tbody").append(newRow);
+
+                                    console.log("x4");
+                                });
+                            } else {
+                                console.log(data);
+                                console.log("Unexpected data structure received from the server");
+                            }
                         },
                         error: function (error) {
-                            // Обработка ошибок запроса
+                            // Handle AJAX request errors
                         }
                     });
 

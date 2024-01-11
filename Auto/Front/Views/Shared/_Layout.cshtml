@@ -17,7 +17,7 @@
     <div>
         <nav>
 
-            <a href="/account/index">Home</a>
+            <a href="/home/index">Home</a>
 
             @if (!User.Identity.IsAuthenticated)
             {
@@ -35,7 +35,7 @@
                 <a href="/moderator/catalog"><i class="fas fa-toolbox"></i>Moderator</a>
             }
 
-            <a href="/account/about"><i class="fas fa-info-circle"></i>About</a>
+            <a href="/home/about"><i class="fas fa-info-circle"></i>About</a>
 
             @if (User.Identity.IsAuthenticated)
             {

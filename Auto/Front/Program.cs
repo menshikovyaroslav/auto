@@ -39,7 +39,7 @@ namespace Front
 			{
 				endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Users}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("moderator", "{area:exists}/{controller=Catalog}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute("default", "{controller=Account}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 			});
 
 			app.Run();
