@@ -31,7 +31,7 @@
                     droppedItemsIds.push(droppedItemId);
 
                     $.ajax({
-                        url: "/Home/Index",
+                        url: "/Cars/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
@@ -68,7 +68,7 @@
                     droppedItemsIds.splice(index, 1);
 
                     $.ajax({
-                        url: "/Home/Index",
+                        url: "/Cars/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {

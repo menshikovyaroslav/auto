@@ -5,7 +5,13 @@ namespace Front.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> About()
+        public IActionResult Index()
+        {
+            return RedirectToAction("Index", "Cars");
+        }
+
+        [HttpGet]
+        public IActionResult About()
         {
             return View("About");
         }
