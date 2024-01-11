@@ -8,7 +8,6 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Подключение библиотек jQuery и jQuery UI -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
@@ -24,59 +23,26 @@
         var droppedItemsIds = [];
 
         $(".droppable-area-stakan").droppable({
-            accept: ".draggable-item", // определение, какие элементы можно бросать в область
+            accept: ".draggable-item",
             drop: function (event, ui) {
-                // Обработка события бросания элемента
-                // ui.helper содержит информацию о брошенном элементе
-                // event содержит информацию о событии
-
                 var droppedItem = ui.helper;
-
-                // Выполняем необходимые действия
-                // Например, можно получить идентификатор брошенного элемента
                 var droppedItemId = droppedItem.data("id");
-
                 if (droppedItemsIds.indexOf(droppedItemId) === -1) {
-                    // Добавляем идентификатор в массив
                     droppedItemsIds.push(droppedItemId);
 
-                    //Пример: вы можете отправить запрос на сервер для обновления данных
-         
                     $.ajax({
                         url: "/Home/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
-                            // Check if data is an object and has the expected structure
                             if (data && data.cars && Array.isArray(data.cars)) {
-                                // Clear the table body
                                 $(".carscontainer table tbody").empty();
-
-                                console.log("x0");
-
-                                // Iterate over the Cars property of HomeViewModel
                                 $.each(data.cars, function (carIndex, car) {
-
-                                    console.log("x1");
-                                    
-
                                     var newRow = $("<tr>");
-
-                                    console.log("x2");
-
-                                    // Add cells with data
-                                    // Uncomment if needed: $("<td>").text(car.Model.Brand.Name).appendTo(newRow);
                                     $("<td>").text(car.year).appendTo(newRow);
-
-                                    console.log("x3");
-
-                                    // Add the row to the table
                                     $(".carscontainer table tbody").append(newRow);
-
-                                    console.log("x4");
                                 });
                             } else {
-                                console.log(data);
                                 console.log("Unexpected data structure received from the server");
                             }
                         },
@@ -91,61 +57,29 @@
         });
 
         $(".droppable-area-brands").droppable({
-            accept: ".draggable-item", // определение, какие элементы можно бросать в область
+            accept: ".draggable-item",
             drop: function (event, ui) {
-                // Обработка события бросания элемента
-                // ui.helper содержит информацию о брошенном элементе
-                // event содержит информацию о событии
-
                 var droppedItem = ui.helper;
-
-                // Выполняем необходимые действия
-                // Например, можно получить идентификатор брошенного элемента
                 var droppedItemId = droppedItem.data("id");
-
                 var index = droppedItemsIds.indexOf(droppedItemId);
 
                 if (index === -1) {
                 } else {
-                    // Если элемент уже присутствует в массиве, удаляем его
                     droppedItemsIds.splice(index, 1);
 
-                    //Пример: вы можете отправить запрос на сервер для обновления данных
                     $.ajax({
                         url: "/Home/Index",
                         type: "POST",
                         data: { brandIds: droppedItemsIds },
                         success: function (data) {
-                            // Check if data is an object and has the expected structure
                             if (data && data.cars && Array.isArray(data.cars)) {
-                                // Clear the table body
                                 $(".carscontainer table tbody").empty();
-
-                                console.log("x0");
-
-                                // Iterate over the Cars property of HomeViewModel
                                 $.each(data.cars, function (carIndex, car) {
-
-                                    console.log("x1");
-
-
                                     var newRow = $("<tr>");
-
-                                    console.log("x2");
-
-                                    // Add cells with data
-                                    // Uncomment if needed: $("<td>").text(car.Model.Brand.Name).appendTo(newRow);
                                     $("<td>").text(car.year).appendTo(newRow);
-
-                                    console.log("x3");
-
-                                    // Add the row to the table
                                     $(".carscontainer table tbody").append(newRow);
-
-                                    console.log("x4");
                                 });
                             } else {
-                                console.log(data);
                                 console.log("Unexpected data structure received from the server");
                             }
                         },
@@ -155,30 +89,27 @@
                     });
 
                 }
-
             }
         });
     });
-
 
 </script>
 
 <style>
     .brandlogos {
         display: flex;
-        flex-direction: column; /* Это устанавливает направление flex контейнера на вертикальное */
+        flex-direction: column;
         border: 1px solid #444;
         background-color: #f0f0f0;
         padding: 20px;
     }
 
     .logoimage {
-        margin-bottom: 10px; /* Пример отступа между изображениями (по вашему желанию) */
+        margin-bottom: 10px;
     }
 
         .logoimage img {
             width: 60px;
-            /* Дополнительные стили для изображения (по вашему желанию) */
         }
 
     .carscontainer {
@@ -204,8 +135,8 @@
 
     .container {
         display: flex;
-        justify-content: space-between; /* Распределение элементов по горизонтали с равным пространством между ними */
-        align-items: stretch; /* Выравнивание элементов по центру по вертикали */
+        justify-content: space-between;
+        align-items: stretch;
         padding: 10px;
         height: 80vh;
     }
@@ -240,9 +171,6 @@
                 <th>Car</th>
                 <th>Email</th>
             </tr>
-
-
-
         </table>
     </div>
 </div>

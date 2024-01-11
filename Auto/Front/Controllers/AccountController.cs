@@ -1,16 +1,9 @@
-﻿using Dom.Extensions;
-using Front.Areas.Admin.Models;
+﻿using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
-using Front.Areas.Cars.Models;
 using Front.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Front.Controllers
 {
@@ -41,12 +34,6 @@ namespace Front.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            //if (HttpContext.User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index");
-            //}
-            //return View();
-
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
@@ -56,8 +43,6 @@ namespace Front.Controllers
             return View();
         }
 
-        // RedirectToIndex
-
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -65,11 +50,8 @@ namespace Front.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
-
-
                 if (result.Succeeded)
                 {
-                    // Принадлежит ли URL приложению.
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -82,7 +64,6 @@ namespace Front.Controllers
                 else
                 {
                     TempData["Error"] = "Error. Bad login or pass.";
-                    //ModelState.AddModelError("", "Неверный логин и (или) пароль");
                 }
             }
 
@@ -92,7 +73,6 @@ namespace Front.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -113,7 +93,7 @@ namespace Front.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            string errors = "";
+            string errors = string.Empty;
 
             if (ModelState.IsValid)
             {

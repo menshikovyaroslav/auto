@@ -1,6 +1,6 @@
 ﻿@using Front.Areas.Cars.Models;
 
-@model IEnumerable<Brand> // Данные, с кот. работает вьюха.
+@model IEnumerable<Brand>
 
 @{
     var error = TempData["Error"] as string;
@@ -15,7 +15,6 @@
 
 <h2>Brands</h2>
 <p>
-    @*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
     <a class="createlabel" asp-action="Create">Create new brand</a>
 </p>
 <table>
@@ -35,9 +34,6 @@
             </td>
 
             <td>
-                @*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
-            asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
-            *@
                 <a class="editlabel" asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Изменить</a>
             </td>
             <td>

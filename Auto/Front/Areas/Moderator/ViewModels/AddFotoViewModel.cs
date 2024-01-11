@@ -1,5 +1,4 @@
 ﻿using Front.Areas.Cars.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace Front.Areas.Moderator.ViewModels
 {

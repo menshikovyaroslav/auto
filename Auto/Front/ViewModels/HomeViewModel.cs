@@ -1,7 +1,4 @@
-﻿using Dom.Extensions;
-using Front.Areas.Cars.Models;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+﻿using Front.Areas.Cars.Models;
 
 namespace Front.ViewModels
 {

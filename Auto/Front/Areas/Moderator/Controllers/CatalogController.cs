@@ -1,16 +1,8 @@
 ﻿using Front.Areas.Admin.Services;
 using Front.Areas.Cars.Models;
 using Front.Areas.Moderator.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
-using System.Security.Claims;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Drawing;
 using System.IO.Abstractions;
 
 namespace Front.Areas.Cars.Controllers
@@ -85,7 +77,6 @@ namespace Front.Areas.Cars.Controllers
                 var car = await _carsService.GetCarAsync(editModel.Id);
 
                 var model = await _carsService.GetModelAsync(editModel.ModelId);
-                var brand = await _carsService.GetBrandAsync(editModel.BrandId);
                 var color = await _carsService.GetColorAsync(editModel.ColorId);
 
                 car.Model = model;
@@ -121,7 +112,6 @@ namespace Front.Areas.Cars.Controllers
             {
                 string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", id.ToString());
 
-                // Создать подкаталог, если он не существует
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
@@ -130,9 +120,7 @@ namespace Front.Areas.Cars.Controllers
                 var fotoGuid = Guid.NewGuid().ToString();
                 var extension = Path.GetExtension(uploadedFile.FileName).ToLowerInvariant();
 
-                // путь к папке Files
                 string path = $"/fotos/{id}/{fotoGuid}{extension}";
-                // сохраняем файл в папку Files в каталоге wwwroot
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);

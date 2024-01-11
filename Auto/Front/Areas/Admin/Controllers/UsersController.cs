@@ -1,5 +1,4 @@
 ﻿using Front.Areas.Admin.Models;
-using Front.Areas.Admin.Services;
 using Front.Areas.Admin.ViewModels;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -12,13 +11,11 @@ namespace Front.Areas.Admin.Controllers
 	[Area("Admin")]
     public class UsersController : Controller
     {
-        RoleManager<IdentityRole> _roleManager;
         UserManager<User> _userManager;
 
-        public UsersController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -58,11 +55,6 @@ namespace Front.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
-            //var result = await _usersService.DeleteAsync(id);
-            //if (result != null)
-            //{
-            //	return RedirectToAction("Index");
-            //}
             return NotFound();
         }
 

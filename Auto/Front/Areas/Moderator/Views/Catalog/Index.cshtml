@@ -29,7 +29,6 @@
 
 <h2>Cars</h2>
 <p>
-	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
 	<a class="createlabel" asp-action="Create">Create new car</a>
 </p>
 <table>
@@ -63,9 +62,6 @@
 			</td>
 
 			<td>
-				@*asp-action вызове метод у контроллера по имени папки, где лежит вьюха.
-			asp-route-твойтекст можно кастомизировать (не только id, а что угодно) -- параметр маршрута.
-			*@
 				<a asp-action="Edit" class="editlabel" asp-controller="Catalog" asp-route-id="@item.Id">Edit</a>
 			</td>
 			<td>

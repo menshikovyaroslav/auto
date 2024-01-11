@@ -1,7 +1,4 @@
-﻿using Front.Models;
-using System.ComponentModel.DataAnnotations;
-
-namespace Front.ViewModels
+﻿namespace Front.ViewModels
 {
 	public class ChangePasswordViewModel
     {

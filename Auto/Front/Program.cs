@@ -1,7 +1,5 @@
-using Front.Areas.Admin.Controllers;
 using Front.Areas.Admin.Models;
 using Front.Areas.Admin.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Abstractions;

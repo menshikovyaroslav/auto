@@ -1,6 +1,5 @@
 ﻿using Front.Models;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Front.Areas.Admin.Models

@@ -1,14 +1,7 @@
-﻿using Front.Areas.Admin.Models;
-using Front.Areas.Admin.Services;
-using Front.Areas.Admin.ViewModels;
+﻿using Front.Areas.Admin.Services;
 using Front.Areas.Moderator.ViewModels;
-using Front.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Front.Areas.Cars.Controllers
 {

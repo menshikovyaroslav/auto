@@ -1,5 +1,4 @@
 ﻿using Front.Models;
-using Front.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Front.Areas.Admin.ViewModels

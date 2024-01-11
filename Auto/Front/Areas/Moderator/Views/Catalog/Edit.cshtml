@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
 <script>
     $(document).ready(function () {
         $('.photo').click(function () {
@@ -91,7 +90,6 @@
         </tr>
 
         <tr>
-
             <td>
 
                 <select asp-for="BrandId" id="brands">
@@ -110,9 +108,6 @@
                     }
                 </select>
             </td>
-
-
-
             <td>
                 <select asp-for="Year">
                     @foreach (int item in Model.AllYears)

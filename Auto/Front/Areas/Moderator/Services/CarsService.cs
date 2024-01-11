@@ -1,10 +1,7 @@
 ﻿using Dom.Extensions;
 using Front.Areas.Admin.Models;
 using Front.Areas.Cars.Models;
-using Front.Areas.Moderator.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 using Color = Front.Areas.Cars.Models.Color;
 
 namespace Front.Areas.Admin.Services
@@ -219,29 +216,6 @@ namespace Front.Areas.Admin.Services
 				.Include(m => m.Brand)
 				.SingleOrDefaultAsync(m => m.Id == id);
 		}
-
-		//public async Task<EditCarViewModel> GetSelectedBrandModelsAsync(EditCarViewModel model)
-		//{
-		//	var thisBrand = await _db.Brands.Include(o => o.Models).FirstOrDefaultAsync(o => o.Id == model.BrandId);
-
-		//	if (thisBrand != null)
-		//	{
-		//		SelectedBrandModelsDto dto = new SelectedBrandModelsDto();
-
-		//		var modelsForSelectList = thisBrand.Models.Select(o => new
-		//			{
-		//				ModelId = o.Id,
-		//				ModelName = o.Name
-		//			}).ToList();
-
-		//		dto.SelectedBrandModels = new SelectList(modelsForSelectList, "ModelId", "ModelName");
-
-		//		model.Dto = dto;
-		//		return model;
-		//	}
-
-		//	return null;
-		//}
 
         public async Task<IEnumerable<Model>> GetSelectedBrandModelsAsync(int brandId)
         {

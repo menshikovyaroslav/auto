@@ -1,6 +1,6 @@
 ﻿@using Front.Areas.Admin.Models;
 
-@model IEnumerable<User> // Данные, с кот. работает вьюха.
+@model IEnumerable<User>
 
 @{
 	ViewBag.Title = "User administration";
@@ -9,7 +9,6 @@
 
 <h2>Users</h2>
 <p>
-	@*asp -- Тэг-хелперы. Подключаются с помощью _ViewImports.cshtml. Без него не работает.*@
 	<a class="createlabel" asp-action="Create">Create new user</a>
 </p>
 <table>

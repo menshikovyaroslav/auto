@@ -1,11 +1,9 @@
 ﻿using Front.Areas.Admin.Models;
-using Front.Areas.Admin.Services;
 using Front.Areas.Admin.ViewModels;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Front.Areas.Admin.Controllers
 {
@@ -21,40 +19,6 @@ namespace Front.Areas.Admin.Controllers
 			_roleManager = roleManager;
 			_userManager = userManager;
         }
-
-		//[HttpGet]
-		//public IActionResult Index()
-		//{
-		//	return View(_userManager.Users.ToList());
-		//}
-
-		//[HttpGet]
-		//public async Task<IActionResult> Create()
-		//{
-		//	return View();
-		//}
-
-		//[HttpPost]
-		//public async Task<IActionResult> Create(User user)
-		//{
-		//	var result = await _usersService.CreateAsync(user);
-		//	if (result != null)
-		//	{
-		//		return RedirectToAction("Index");
-		//	}
-		//	return BadRequest();
-		//}
-
-		//[HttpPost]
-		//public async Task<IActionResult> Delete(int? id)
-		//{
-		//	//var result = await _usersService.DeleteAsync(id);
-		//	//if (result != null)
-		//	//{
-		//	//	return RedirectToAction("Index");
-		//	//}
-		//	return NotFound();
-		//}
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(string id)
@@ -73,21 +37,15 @@ namespace Front.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> EditUser(string userId, List<string> roles)
 		{
-            // получаем пользователя
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
-                // получаем все роли
                 var allRoles = _roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
                 var removedRoles = userRoles.Except(roles);
 
                 await _userManager.AddToRolesAsync(user, addedRoles);
-
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
                 return RedirectToAction("Index", "Users");

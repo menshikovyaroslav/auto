@@ -1,10 +1,4 @@
-﻿using Front.Areas.Admin.Models;
-using Front.Areas.Admin.Services;
-using Front.Areas.Cars.Models;
-using Front.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Front.Controllers
 {

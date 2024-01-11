@@ -1,7 +1,6 @@
 ﻿using Front.Areas.Admin.Models;
 using Front.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Front.Areas.Admin.Services
@@ -32,7 +31,6 @@ namespace Front.Areas.Admin.Services
 
 		public async Task LogoutAsync()
 		{
-			// Удаление аутен. куки.
 			await _signInManager.SignOutAsync();
 		}
 
@@ -42,7 +40,6 @@ namespace Front.Areas.Admin.Services
 			var result = await _userManager.CreateAsync(user, model.Password);
 			if (result.Succeeded)
 			{
-				// cookies:
 				await _signInManager.SignInAsync(user, false);
 			}
 
