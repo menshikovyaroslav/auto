@@ -8,12 +8,6 @@
     ViewBag.Title = "Edit brand";
 }
 
-<script>
-    function goBack() {
-        window.location.href = '/Moderator/Brands';
-    }
-</script>
-
 <h2>Изменить данные</h2>
 
 <div class="logo">
@@ -43,7 +37,7 @@
 
     <div>
         <nav>
-            <input type="button" onclick="goBack();" value="Back" />
+            <input type="button" onclick="goToModeratorBrands();" value="Back" />
             <input type="submit" value="Make changes" />
         </nav>
     </div>

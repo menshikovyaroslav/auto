@@ -12,42 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('.photo').click(function () {
-            var imageUrl = $(this).data('image');
-            $('#imageModal').find('.modal-body img').attr('src', imageUrl);
-            $('#imageModal').modal('show');
-        });
-
-        // Обработка изменения первого select
-        $('#brands').change(function () {
-            var selectedBrandId = $(this).val();
-
-            // Выполнение AJAX-запроса для обновления списка моделей
-            $.ajax({
-                url: '/Moderator/Catalog/UpdateModels', // Замените на свой URL-адрес
-                type: 'POST',
-                data: { brandId: selectedBrandId },
-                success: function (data) {
-                    // Обновление списка моделей
-                    $('#models').empty();
-                    $.each(data, function (index, item) {
-                        $('#models').append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-                },
-                error: function () {
-                    console.log('Ошибка при выполнении AJAX-запроса');
-                }
-            });
-        });
-    });
-
-    function goBack() {
-        window.location.href = '/Moderator/Catalog';
-    }
-</script>
+<script src="@Url.Content("~/js/moderator/editcatalog.js")" type="text/javascript"></script>
 
 <h2>Изменить данные</h2>
 
@@ -132,7 +97,7 @@
 
     <div>
         <nav>
-            <input type="button" onclick="goBack();" value="Back" />
+            <input type="button" onclick="goToModeratorCatalog();" value="Back" />
             <input type="submit" value="Make changes" />
         </nav>
     </div>

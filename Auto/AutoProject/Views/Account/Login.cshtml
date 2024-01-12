@@ -5,12 +5,6 @@
     var error = TempData["Error"] as string;
 }
 
-<script>
-    function goBack() {
-        window.location.href = '/Account/ForgotPassword';
-    }
-</script>
-
 @if (!string.IsNullOrEmpty(error))
 {
     <div class="alert-danger">@error</div>
@@ -30,7 +24,7 @@
         <span asp-validation-for="Password"></span>
     </div>
     <div class="authbuttons">
-        <input type="button" onclick="goBack()" value="Forgot your password?" />
+        <input type="button" onclick="goToAccountForgotPassword();" value="Forgot your password?" />
         <input type="submit" value="Login" />
     </div>
 </form>
