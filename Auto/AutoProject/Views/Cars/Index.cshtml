@@ -26,21 +26,21 @@
 
 <h2>Home</h2>
 
-<div class="container">
-    <div class="brandlogos droppable-area-brands">
+<div class="contentcontainer">
+    <div class="brandscontainer droppable-area-brands">
         @foreach (var brand in Model.Brands)
         {
-            <div data-id="@brand.Id" class="logoimage draggable-item"><img src="@brand.Logo"></div>
+            <div data-id="@brand.Id" class="draggable-item"><img src="@brand.Logo" class="brandlogo"></div>
         }
     </div>
-    <div class="stakancontainer">
-        <div class="stakan droppable-area-stakan"><img src="/images/stakan.png"></div>
+    <div class="glasscontainer">
+        <div class="droppable-area-stakan"><img src="/images/stakan.png"></div>
     </div>
     <div class="carscontainer">
         <table>
             <tr>
                 <th>Car</th>
-                <th>Email</th>
+                <th>Year</th>
             </tr>
         </table>
     </div>

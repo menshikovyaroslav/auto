@@ -11,5 +11,5 @@ function goToModeratorColors() {
 }
 
 function goToModeratorModels() {
-    window.location.href = '/Moderator/Colors';
+    window.location.href = '/Moderator/Models';
 }

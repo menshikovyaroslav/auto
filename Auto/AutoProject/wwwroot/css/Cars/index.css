@@ -1,4 +1,4 @@
-﻿.brandlogos {
+﻿.brandscontainer {
     display: flex;
     flex-direction: column;
     border: 1px solid #444;
@@ -6,36 +6,22 @@
     padding: 20px;
 }
 
-.logoimage {
-    margin-bottom: 10px;
-}
-
-    .logoimage img {
-        width: 60px;
-    }
-
 .carscontainer {
     flex: 1;
     background-color: #e0e0e0;
 }
 
-.stakancontainer {
+.glasscontainer {
     text-align: center;
 }
 
-.stakan {
-    text-align: center;
-    display: inline-block;
-    align-items: center;
-}
-
-    .stakan img {
+    .glasscontainer img {
         display: inline-block;
         align-items: center;
         width: 300px;
     }
 
-.container {
+.contentcontainer {
     display: flex;
     justify-content: space-between;
     align-items: stretch;

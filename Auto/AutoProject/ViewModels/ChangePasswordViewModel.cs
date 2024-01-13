@@ -1,11 +1,19 @@
-﻿namespace Front.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Front.ViewModels
 {
 	public class ChangePasswordViewModel
     {
-        public string OldPassword { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string? OldPassword { get; set; }
 
-        public string NewPassword1 { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string? NewPassword1 { get; set; }
 
-        public string NewPassword2 { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string? NewPassword2 { get; set; }
     }
 }

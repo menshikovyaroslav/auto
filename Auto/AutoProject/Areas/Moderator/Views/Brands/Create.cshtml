@@ -10,17 +10,21 @@
 
 <form asp-action="Create" asp-controller="Brands" method="post">
 
-    <table>
-        <tr>
-            <th>Brand Name</th>
-        </tr>
-        <tr>
-            <td>
-                <input asp-for="Name" />
-            </td>
-        </tr>
+    <div class="formdiv">
 
-    </table>
+        <table>
+            <tr>
+                <th>Brand Name</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="inputfield" asp-for="Name" />
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
 
     <div>
         <nav>

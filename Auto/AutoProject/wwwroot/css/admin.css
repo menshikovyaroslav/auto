@@ -1,10 +1,27 @@
-﻿/* AdminStyles.css */
+﻿a.createlabel {
+    color: #007bff;
+    font-weight: bold;
+    margin: 20px;
+    text-decoration: none;
+}
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    a.createlabel:hover {
+        text-decoration: underline;
+    }
+
+a.editlabel {
+    color: #007bff;
+    font-weight: bold;
+    margin: 20px;
+    text-decoration: none;
+}
+
+    a.editlabel:hover {
+        text-decoration: underline;
+    }
+
+p {
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -14,96 +31,9 @@ h2 {
     padding-bottom: 5px;
 }
 
-p {
-    margin-bottom: 20px;
-}
-
-table {
-    width: calc(100% - 40px);
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-form {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: inline; /* чтобы кнопка "Удалить" была на той же строке, что и текст */
-}
-
-a.createlabel {
-    /* Ваши стили для ссылок с классом createlabel */
-    color: #007bff;
-    font-weight: bold;
-    margin: 20px;
-    text-decoration: none;
-}
-
-    a.createlabel:hover {
-        text-decoration: underline; /* Подчеркивание при наведении */
-    }
-
-a.editlabel {
-    /* Ваши стили для ссылок с классом createlabel */
-    color: #007bff;
-    font-weight: bold;
-    margin: 20px;
-    text-decoration: none;
-}
-
-    a.editlabel:hover {
-        text-decoration: underline; /* Подчеркивание при наведении */
-    }
-
-select {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-#photoListContainer {
-    width: calc(100% - 40px);
-    margin: 20px; /* половина отнимаемых пикселей с каждой стороны */
-    overflow-x: auto; /* добавим горизонтальную прокрутку, если фотографий много */
-}
-
-#photoList {
-    display: flex;
-    gap: 1px; /* расстояние между фотографиями */
-}
-
-.photo {
-    width: 100px; /* устанавливаем ширину каждой фотографии */
-    height: 100px; /* устанавливаем высоту каждой фотографии */
-    overflow: hidden; /* предотвращает растягивание изображения */
-    cursor: pointer;
-    margin-bottom: 1px;
-}
-
-    .photo img {
-        width: 100%; /* устанавливает ширину изображения в 100% от родительского контейнера */
-        height: 100%; /* устанавливает высоту изображения в 100% от родительского контейнера */
-        object-fit: cover; /* сохраняет соотношение сторон изображения и заполняет контейнер */
-    }
-
-.form-group {
-    margin-bottom: 10px;
+    background-color: #fff;
 }

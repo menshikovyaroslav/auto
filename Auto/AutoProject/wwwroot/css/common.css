@@ -18,14 +18,22 @@
         }
 
     nav i {
-        margin-right: 8px; /* Отступ между иконкой и текстом */
+        margin-right: 8px;
     }
+
+.inputfield {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
 input[type="submit"] {
     background-color: #dc3545;
     color: #fff;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 20px;
     cursor: pointer;
 }
 
@@ -37,7 +45,7 @@ input[type="button"] {
     background-color: #dc3545;
     color: #fff;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 20px;
     cursor: pointer;
 }
 
@@ -63,18 +71,14 @@ input[type="button"] {
     border-radius: 0.25rem;
 }
 
-.logo {
-    margin-left: 20px;
-}
-
 .logoimage {
     text-align: center;
 }
 
-    .logoimage img {
-        display: inline-block;
-        width: 40px;
-    }
+.brandlogo {
+    display: inline-block;
+    width: 40px;
+}
 
 .color-item {
     display: flex;
@@ -92,4 +96,104 @@ input[type="button"] {
     color: white;
     font-weight: bold;
     margin-right: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    margin-top: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.dropbtn {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    min-width: 240px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-align: left;
+}
+
+    .dropdown-content a {
+        color: #fff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.authbuttons {
+    box-sizing: border-box;
+}
+
+.formdiv {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.formfullwidth {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+table {
+    width: calc(100% - 40px);
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }

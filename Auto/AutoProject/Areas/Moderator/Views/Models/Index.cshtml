@@ -19,6 +19,7 @@
 <table>
 	<tr>
 		<th>Brand</th>
+		<th>Logo</th>
 		<th>Name</th>
 		<th>Edit</th>
 		<th>Delete</th>
@@ -27,13 +28,16 @@
 	{
 		<tr>
 			<td>@item.Brand.Name</td>
+			<td>
+				<div><img class="brandlogo" src="@item.Brand.Logo"></div>
+			</td>
 			<td>@item.Name</td>
 			<td>
 				<a asp-action="Edit" class="editlabel" asp-controller="Models" asp-route-id="@item.Id">Edit</a>
 			</td>
 			<td>
 				<form asp-action="Delete" method="post" asp-route-id="@item.Id">
-					<input type="submit" value="Удалить" />
+					<input type="submit" value="Delete" />
 				</form>
 			</td>
 		</tr>

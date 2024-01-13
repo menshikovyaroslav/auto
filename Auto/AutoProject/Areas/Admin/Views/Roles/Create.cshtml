@@ -4,22 +4,26 @@
 @model Front.ViewModels.CreateRoleViewModel;
 
 @{
-	ViewBag.Title = "Create role";
+    ViewBag.Title = "Create role";
 }
 
 <form asp-action="Create" asp-controller="Roles" method="post">
 
-    <table>
-        <tr>
-            <th>Role Name</th>
-        </tr>
-        <tr>
-            <td>
-                <input asp-for="Name" />
-            </td>
-        </tr>
+    <div class="formdiv">
 
-    </table>
+        <table>
+            <tr>
+                <th>Role Name</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="inputfield" asp-for="Name" />
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
 
     <div>
         <nav>

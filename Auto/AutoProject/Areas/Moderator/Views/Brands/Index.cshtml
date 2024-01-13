@@ -29,15 +29,15 @@
             <td>@item.Name</td>
 
             <td>
-                <div class="logoimage"><img src="@item.Logo"></div>
+                <div><img class="brandlogo" src="@item.Logo"></div>
             </td>
 
             <td>
-                <a class="editlabel" asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Изменить</a>
+                <a class="editlabel" asp-action="Edit" asp-controller="Brands" asp-route-id="@item.Id">Edit</a>
             </td>
             <td>
                 <form asp-action="Delete" method="post" asp-route-id="@item.Id">
-                    <input type="submit" value="Удалить" />
+                    <input type="submit" value="Delete" />
                 </form>
             </td>
         </tr>

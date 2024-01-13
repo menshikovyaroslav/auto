@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\css\Moderator\" />
     <Folder Include="wwwroot\fotos\" />
   </ItemGroup>
 

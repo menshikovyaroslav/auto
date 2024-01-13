@@ -3,28 +3,32 @@
 @model Front.Areas.Admin.ViewModels.EditViewModel;
 
 @{
-	ViewBag.Title = "Edit user";
+    ViewBag.Title = "Edit user";
 }
 
 <h2>Изменить данные</h2>
 
 <form method="post" asp-controller="Users" asp-action="Edit">
 
-    <table>
-        <tr>
-            <th>Login</th>
-            <th>Email</th>
-        </tr>
-        <tr>
-            <td>
-                <input asp-for="Login" />
-            </td>
-            <td>
-                <input asp-for="Email" />
-            </td>
-        </tr>
+    <div class="formdiv">
 
-    </table>
+        <table>
+            <tr>
+                <th>Login</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="inputfield" asp-for="Login" />
+                </td>
+                <td>
+                    <input class="inputfield" asp-for="Email" />
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
 
     <div>
         <nav>

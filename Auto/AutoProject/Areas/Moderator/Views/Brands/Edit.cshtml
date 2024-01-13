@@ -8,32 +8,40 @@
     ViewBag.Title = "Edit brand";
 }
 
-<h2>Изменить данные</h2>
+<h2>Edit brand</h2>
 
-<div class="logo">
-    <div class="photo" data-image="@Model.Logo"><img src="@Model.Logo"></div>
-
+<div>
     <form asp-action="AddLogo" asp-controller="Brands" method="post" enctype="multipart/form-data">
-        <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
-        <input type="file" name="uploadedFile" accept="image/*">
-        <input type="submit" value="Upload" />
+        <div class="formdiv">
+            <div class="photo" data-image="@Model.Logo"><img src="@Model.Logo"></div>
+            <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
+        </div>
+
+        <div>
+            <nav>
+                <input type="file" name="uploadedFile" accept="image/*">
+                <input type="submit" value="Upload" />
+            </nav>
+        </div>
     </form>
 </div>
 
 
 <form asp-action="Edit" asp-controller="Brands" method="post">
 
-    <table>
-        <tr>
-            <th>Brand Name</th>
-        </tr>
-        <tr>
-            <td>
-                <input asp-for="Name" />
-            </td>
-        </tr>
+    <div class="formdiv">
+        <table>
+            <tr>
+                <th>Brand Name</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="inputfield" asp-for="Name" />
+                </td>
+            </tr>
 
-    </table>
+        </table>
+    </div>
 
     <div>
         <nav>

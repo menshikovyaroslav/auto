@@ -128,7 +128,7 @@ namespace Front.Areas.Admin.Services
 		public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
 		{
 			return await _db.Brands
-				.Include(b => b.Models)
+				//.Include(b => b.Models)
 				.OrderBy(b => b.Name)
 				.ToListAsync();
 		}
@@ -150,7 +150,7 @@ namespace Front.Areas.Admin.Services
 			{
 				foreach (var s in searchBrandIds)
 				{
-					var carsInCondition = _db.Cars.Where(c => c.Model.Brand.Id == s.ToInt());
+					var carsInCondition = _db.Cars.Include(c => c.Model).Include(c => c.Model.Brand).Where(c => c.Model.Brand.Id == s.ToInt());
                     filteredCars.AddRange(carsInCondition);
                 }
 
@@ -175,7 +175,7 @@ namespace Front.Areas.Admin.Services
 		public async Task<Brand> GetBrandAsync(int id)
 		{
 			return await _db.Brands
-				.Include(b => b.Models)
+				//.Include(b => b.Models)
 				.SingleOrDefaultAsync(b => b.Id == id);
 		}
 
@@ -219,14 +219,11 @@ namespace Front.Areas.Admin.Services
 
         public async Task<IEnumerable<Model>> GetSelectedBrandModelsAsync(int brandId)
         {
-            var brand = await _db.Brands.Include(o => o.Models).FirstOrDefaultAsync(o => o.Id == brandId);
+            var models = await _db.Models
+				.Include(o => o.Brand)
+				.Where(o => o.Brand.Id == brandId).ToListAsync();
 
-            if (brand != null)
-            {
-                return brand.Models.OrderBy(m => m.Name);
-            }
-
-			return null;
+			return models;
         }
     }
 }

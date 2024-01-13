@@ -9,38 +9,39 @@
     ViewBag.Title = "Edit model";
 }
 
-<h2>Изменить данные</h2>
+<h2>Edit model</h2>
 
 <form asp-action="Edit" asp-controller="Models" method="post">
 
-	<table>
-		<tr>
-			<th>Brand</th>
-			<th>Model Name</th>
-		</tr>
+    <div class="formdiv">
+        <table>
+            <tr>
+                <th>Brand</th>
+                <th>Model Name</th>
+            </tr>
 
-		<tr>
-			<td>
-				<select asp-for="BrandId">
-					@foreach (Brand brand in Model.AllBrands)
-					{
-						<option value="@brand.Id">@brand.Name</option>
-					}
-				</select>
-			</td>
-			<td>
-				<input asp-for="Name" />
-			</td>
-		</tr>
+            <tr>
+                <td>
+                    <select asp-for="BrandId">
+                        @foreach (Brand brand in Model.AllBrands)
+                        {
+                            <option value="@brand.Id">@brand.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input class="inputfield" asp-for="Name" />
+                </td>
+            </tr>
+        </table>
+    </div>
 
-	</table>
-
-	<div>
-		<nav>
-			<input type="button" onclick="goToModeratorModels();" value="Back" />
-			<input type="submit" value="Make changes" />
-		</nav>
-	</div>
+    <div>
+        <nav>
+            <input type="button" onclick="goToModeratorModels();" value="Back" />
+            <input type="submit" value="Make changes" />
+        </nav>
+    </div>
 </form>
 
 

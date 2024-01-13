@@ -26,7 +26,7 @@
 	{
 		<tr>
 			<td>
-				<div class="logoimage"><img src="@item.Model.Brand.Logo"></div>
+				<div><img src="@item.Model.Brand.Logo" class="brandlogo"></div>
 			</td>
 
 			<td>@item.Model.ToString()</td>
@@ -47,7 +47,7 @@
 			</td>
 			<td>
 				<form asp-action="Delete" method="post" asp-route-id="@item.Id">
-					<input type="submit" value="Удалить" />
+					<input type="submit" value="Delete" />
 				</form>
 			</td>
 		</tr>

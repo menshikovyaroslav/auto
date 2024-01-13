@@ -10,23 +10,25 @@
 
 <form asp-action="Create" asp-controller="Colors" method="post">
 
-<table>
-    <tr>
-        <th>Color Name</th>
-    </tr>
-    <tr>
-        <td>
-            <input asp-for="Name" />
-        </td>
-    </tr>
+    <div class="formdiv">
+        <table>
+            <tr>
+                <th>Color Name</th>
+            </tr>
+            <tr>
+                <td>
+                    <input class="inputfield" asp-for="Name" />
+                </td>
+            </tr>
 
-</table>
+        </table>
+    </div>
 
-<div>
-    <nav>
+    <div>
+        <nav>
             <input type="button" onclick="goToModeratorColors();" value="Back" />
-        <input type="submit" value="Create" />
-    </nav>
-</div>
+            <input type="submit" value="Create" />
+        </nav>
+    </div>
 
 </form>
