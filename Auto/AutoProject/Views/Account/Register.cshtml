@@ -8,22 +8,24 @@
 <form method="post" asp-controller="Account" asp-action="Register">
 
     <div class="formdiv">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Email">Email</label><br>
-            <input class="inputfield" asp-for="Email" type="email" />
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div>
-            <label asp-for="Login">Login</label><br>
-            <input class="inputfield" asp-for="Login" />
-            <span asp-validation-for="Login"></span>
-        </div>
-        <div>
-            <label asp-for="Password">Password</label><br />
-            <input class="inputfield" asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
+        <table>
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Email">Email</label><br>
+                <input class="inputfield" asp-for="Email" type="email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Login">Login</label><br>
+                <input class="inputfield" asp-for="Login" />
+                <span asp-validation-for="Login"></span>
+            </div>
+            <div>
+                <label asp-for="Password">Password</label><br />
+                <input class="inputfield" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+        </table>
     </div>
 
     <div>

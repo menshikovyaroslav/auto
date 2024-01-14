@@ -13,16 +13,33 @@
             data: { brandIds: droppedItemsIds },
             success: function (data) {
                 if (data && data.cars && Array.isArray(data.cars)) {
-                    $(".carscontainer table tbody").empty();
+                    $(".carscontainer table tbody tr.cartr").remove();
                     $.each(data.cars, function (carIndex, car) {
-                        var newRow = $("<tr>");
+                        var newRow = $("<tr>").addClass("cartr");
 
-                        var imgLogo = car.model.brand.logo;
-                        $("<td>").append($("<img>").attr("src", imgLogo).addClass("brandlogo")).appendTo(newRow);
+                        var carphoto = data.fotos[car.id]?.path;
+                        $("<td>").css("width", "200px").append($("<img>").attr("src", carphoto).addClass("carphotosmall")).appendTo(newRow);
 
-                        $("<td>").text(car.model.brand.name).appendTo(newRow);
+                        var brandLogo = car.model.brand.logo;
+                        var brandContainer = $("<div>").css({
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        });
+                        brandContainer.append($("<img>").attr("src", brandLogo).addClass("brandlogo"));
+                        brandContainer.append(car.model.brand.name);
+                        $("<td>").append(brandContainer).appendTo(newRow);
+
                         $("<td>").text(car.model.name).appendTo(newRow);
                         $("<td>").text(car.year).appendTo(newRow);
+                        $("<td>").text(car.distance).appendTo(newRow);
+
+                        var colorItem = $("<div>").addClass("color-item");
+                        var colorCircle = $("<div>").addClass("color-circle").css("background-color", car.color.name);
+                        var colorSpan = $("<span>").text(car.color.name);
+                        colorItem.append(colorCircle, colorSpan);
+                        $("<td>").append(colorItem).appendTo(newRow);
+
                         $(".carscontainer table tbody").append(newRow);
                     });
                 } else {

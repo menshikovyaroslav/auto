@@ -38,5 +38,6 @@ namespace Front.Areas.Admin.Services
         public Task DeleteFotoAsync(int id);
         public Task<int> GetCarIdByFotoIdAsync(int fotoId);
         public Task<Foto> GetFotoByIdAsync(int fotoId);
+        public Task<Dictionary<int, Foto>> GetCarsMainFotosAsync(int[] carIds);
     }
 }

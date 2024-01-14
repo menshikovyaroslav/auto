@@ -8,17 +8,19 @@
 
 .carscontainer {
     flex: 1;
-    background-color: #e0e0e0;
+    background-color: #fff;
+    max-height: 80vh;
 }
 
 .glasscontainer {
     text-align: center;
+    margin: 200px 20px 0 20px;
 }
 
     .glasscontainer img {
         display: inline-block;
         align-items: center;
-        width: 300px;
+        width: 200px;
     }
 
 .contentcontainer {
@@ -26,5 +28,15 @@
     justify-content: space-between;
     align-items: stretch;
     padding: 10px;
-    height: 80vh;
+    max-height: 600px;
+}
+
+.carstable {
+    width: calc(100% - 40px);
+    border-collapse: collapse;
+    margin: 0;
+}
+
+footer {
+    display: none;
 }

@@ -150,7 +150,11 @@ namespace Front.Areas.Admin.Services
 			{
 				foreach (var s in searchBrandIds)
 				{
-					var carsInCondition = _db.Cars.Include(c => c.Model).Include(c => c.Model.Brand).Where(c => c.Model.Brand.Id == s.ToInt());
+					var carsInCondition = _db.Cars
+						.Include(c => c.Model)
+						.Include(c => c.Model.Brand)
+                        .Include(c => c.Color)
+                        .Where(c => c.Model.Brand.Id == s.ToInt());
                     filteredCars.AddRange(carsInCondition);
                 }
 
@@ -224,6 +228,23 @@ namespace Front.Areas.Admin.Services
 				.Where(o => o.Brand.Id == brandId).ToListAsync();
 
 			return models;
+        }
+
+        public async Task<Dictionary<int, Foto>> GetCarsMainFotosAsync(int[] carIds)
+        {
+            var result = new Dictionary<int, Foto>();
+            var fotos = await _db.Fotos
+                                    .Where(f => carIds.Contains(f.CarId))
+                                    .GroupBy(f => f.CarId)
+                                    .Select(group => group.OrderBy(f => f.Id).First())
+                                    .ToListAsync();
+
+            foreach (var foto in fotos)
+            {
+                result[foto.CarId] = foto;
+            }
+
+            return result;
         }
     }
 }

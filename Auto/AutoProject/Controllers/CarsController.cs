@@ -27,11 +27,16 @@ namespace Front.Controllers
         {
             IEnumerable<Car> cars;
             IEnumerable<Brand> brands;
+            Dictionary<int, Foto> photos;
 
             brands = await _carsService.GetAllBrandsAsync();
-            cars = _carsService.GetFilteredCarsAsync(brandIds);
 
-            var model = new HomeViewModel() { Brands = brands, Cars = cars };
+            cars = _carsService.GetFilteredCarsAsync(brandIds);
+            int[] carIds = cars.Select(car => car.Id).ToArray();
+
+            photos = await _carsService.GetCarsMainFotosAsync(carIds);
+
+            var model = new HomeViewModel() { Brands = brands, Cars = cars, Fotos = photos };
             return model;
         }
     }
