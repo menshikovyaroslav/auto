@@ -1,6 +1,8 @@
-﻿using Dom.Extensions;
+﻿using AutoProject.ViewModels;
+using Dom.Extensions;
 using Front.Areas.Admin.Models;
 using Front.Areas.Cars.Models;
+using Front.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Color = Front.Areas.Cars.Models.Color;
 
@@ -142,25 +144,34 @@ namespace Front.Areas.Admin.Services
 				.ToListAsync();
 		}
 
-        public IEnumerable<Car> GetFilteredCarsAsync(string[] searchBrandIds)
+        public CarsPaginationViewModel GetFilteredCarsAsync(string[] searchBrandIds, int page)
         {
+            int pageSize = 5;
+
             List<Car> filteredCars = new List<Car>();
 
-            if (searchBrandIds != null)
-			{
-				foreach (var s in searchBrandIds)
-				{
-					var carsInCondition = _db.Cars
-						.Include(c => c.Model)
-						.Include(c => c.Model.Brand)
-                        .Include(c => c.Color)
-                        .Where(c => c.Model.Brand.Id == s.ToInt());
-                    filteredCars.AddRange(carsInCondition);
-                }
+            // 1
+            // [1,4,2,7]
 
+            if (searchBrandIds != null && searchBrandIds.Length > 0)
+			{
+                var brandIds = searchBrandIds.Select(s => s.ToInt()).ToList();
+                var carsInCondition = _db.Cars
+                    .Include(c => c.Model)
+                    .Include(c => c.Model.Brand)
+                    .Include(c => c.Color)
+                    .Where(c => brandIds.Contains(c.Model.Brand.Id));
+
+                filteredCars.AddRange(carsInCondition);
 			}
 
-			return filteredCars;
+            var count = filteredCars.Count();
+            filteredCars = filteredCars.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+			var pageModel = new PageViewModel(count, page, pageSize);
+			var carsPaginationViewModel = new CarsPaginationViewModel() { PageViewModel = pageModel, Cars = filteredCars };
+
+            return carsPaginationViewModel;
         }
 
         public async Task<IEnumerable<Color>> GetAllColorsAsync()

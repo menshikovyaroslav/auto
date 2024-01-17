@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+
+    var page = 1;
+
     $(".draggable-item").draggable({
         revert: "invalid",
         cursor: "move",
@@ -10,7 +13,7 @@
         $.ajax({
             url: "/Cars/Index",
             type: "POST",
-            data: { brandIds: droppedItemsIds },
+            data: { brandIds: droppedItemsIds, page: page },
             success: function (data) {
                 if (data && data.cars && Array.isArray(data.cars)) {
                     $(".carscontainer table tbody tr.cartr").remove();
@@ -42,6 +45,26 @@
 
                         $(".carscontainer table tbody").append(newRow);
                     });
+
+                    var paginationBlock = $("<section>").attr("id", "paginationBlock");
+
+                    if (data.pageViewModel.hasPreviousPage) {
+                        var previousPageUrl = "@Url.Action('Index', 'Cars', new { page = data.pageViewModel.pageNumber - 1 })";
+                        paginationBlock.append($("<a>").attr("href", "Index/").attr("asp-route-page", data.pageViewModel.pageNumber - 1).addClass("pagination-item").text(data.pageViewModel.pageNumber - 1));
+                    }
+
+                    paginationBlock.append($("<span>").addClass("pagination-item").text(data.pageViewModel.pageNumber));
+
+                    if (data.pageViewModel.hasNextPage) {
+                        var nextPageUrl = carsUrl +
+                            '?page=' + (data.pageViewModel.pageNumber + 1) +
+                            '&brandIds=' + encodeURIComponent(JSON.stringify(droppedItemsIds));
+                        paginationBlock.append($("<a>").attr("href", nextPageUrl).addClass("pagination-item").text(data.pageViewModel.pageNumber + 1));
+                    }
+
+
+                    $("#paginationBlock").html(paginationBlock.html());
+
                 } else {
                     console.log("Unexpected data structure received from the server");
                 }

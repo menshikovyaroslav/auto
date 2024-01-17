@@ -15,11 +15,32 @@ namespace Front.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string[] brandIds, int page)
         {
-            IEnumerable<Brand> brands = await _carsService.GetAllBrandsAsync();
-            var model = new HomeViewModel() { Brands = brands };
-            return View(model);
+            if (brandIds == null || brandIds.Length == 0)
+            {
+                IEnumerable<Brand> brands = await _carsService.GetAllBrandsAsync();
+                var model = new HomeViewModel() { Brands = brands };
+                return View(model);
+            }
+            else
+            {
+                IEnumerable<Car> cars;
+                IEnumerable<Brand> brands;
+                Dictionary<int, Foto> photos;
+
+                brands = await _carsService.GetAllBrandsAsync();
+
+                var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(brandIds, page);
+                int[] carIds = carsPaginationViewModel.Cars.Select(car => car.Id).ToArray();
+
+                photos = await _carsService.GetCarsMainFotosAsync(carIds);
+
+                var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Fotos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
+                return View(model);
+            }
+
+
         }
 
         [HttpPost]
@@ -31,12 +52,12 @@ namespace Front.Controllers
 
             brands = await _carsService.GetAllBrandsAsync();
 
-            cars = _carsService.GetFilteredCarsAsync(brandIds);
-            int[] carIds = cars.Select(car => car.Id).ToArray();
+            var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(brandIds, 1);
+            int[] carIds = carsPaginationViewModel.Cars.Select(car => car.Id).ToArray();
 
             photos = await _carsService.GetCarsMainFotosAsync(carIds);
 
-            var model = new HomeViewModel() { Brands = brands, Cars = cars, Fotos = photos };
+            var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Fotos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
             return model;
         }
     }

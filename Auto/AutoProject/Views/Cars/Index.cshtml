@@ -13,6 +13,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="@Url.Content("~/js/cars/index.js")" asp-append-version="true" type="text/javascript"></script>
 
+<script>
+    var carsUrl = '@Url.Action("Index", "Cars")';
+</script>
 
 @if (!string.IsNullOrEmpty(error))
 {
@@ -47,5 +50,9 @@
                 <th>Color</th>
             </tr>
         </table>
+
+        <section id="paginationBlock">
+        </section>
+
     </div>
 </div>

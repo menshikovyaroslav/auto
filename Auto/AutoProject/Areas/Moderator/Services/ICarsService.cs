@@ -1,4 +1,5 @@
-﻿using Front.Areas.Cars.Models;
+﻿using AutoProject.ViewModels;
+using Front.Areas.Cars.Models;
 
 namespace Front.Areas.Admin.Services
 {
@@ -27,7 +28,7 @@ namespace Front.Areas.Admin.Services
 		public Task<bool> CanDeleteModelAsync(int id);
 
 		public Task<IEnumerable<Car>> GetAllCarsAsync();
-        public IEnumerable<Car> GetFilteredCarsAsync(string[] searchBrandIds);
+        public CarsPaginationViewModel GetFilteredCarsAsync(string[] searchBrandId, int page);
         public Task CreateCarAsync(Car car);
         public Task DeleteCarAsync(int id);
         public Task<Car> GetCarAsync(int id);
