@@ -31,7 +31,12 @@ namespace Front.Controllers
 
                 brands = await _carsService.GetAllBrandsAsync();
 
-                var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(brandIds, page);
+                string[] convertedArray = brandIds[0].Trim('[', ']')
+                                          .Split(',')
+                                          .Select(s => s.Trim())
+                                          .ToArray();
+
+                var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(convertedArray, page);
                 int[] carIds = carsPaginationViewModel.Cars.Select(car => car.Id).ToArray();
 
                 photos = await _carsService.GetCarsMainFotosAsync(carIds);

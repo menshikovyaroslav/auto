@@ -7,5 +7,11 @@ namespace AutoProject.ViewModels
     {
         public PageViewModel PageViewModel { get; set; }
         public IEnumerable<Car> Cars { get; set; }
+
+        public CarsPaginationViewModel()
+        {
+            PageViewModel = new PageViewModel(0, 1, 5);
+            Cars = new List<Car>();
+        }
     }
 }

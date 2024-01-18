@@ -46,7 +46,7 @@
                         $(".carscontainer table tbody").append(newRow);
                     });
 
-                    var paginationBlock = $("<section>").attr("id", "paginationBlock");
+                    var paginationBlock = $("<section>").attr("id", "paginationBlock").empty();
 
                     if (data.pageViewModel.hasPreviousPage) {
                         var previousPageUrl = "@Url.Action('Index', 'Cars', new { page = data.pageViewModel.pageNumber - 1 })";
@@ -56,9 +56,11 @@
                     paginationBlock.append($("<span>").addClass("pagination-item").text(data.pageViewModel.pageNumber));
 
                     if (data.pageViewModel.hasNextPage) {
+                        var brandIdsString = droppedItemsIds.join(',');
+
                         var nextPageUrl = carsUrl +
                             '?page=' + (data.pageViewModel.pageNumber + 1) +
-                            '&brandIds=' + encodeURIComponent(JSON.stringify(droppedItemsIds));
+                            '&brandIds=' + brandIdsString;
                         paginationBlock.append($("<a>").attr("href", nextPageUrl).addClass("pagination-item").text(data.pageViewModel.pageNumber + 1));
                     }
 

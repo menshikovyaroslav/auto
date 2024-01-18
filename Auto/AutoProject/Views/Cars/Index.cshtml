@@ -49,9 +49,49 @@
                 <th>Distance</th>
                 <th>Color</th>
             </tr>
+
+            @foreach (var car in Model.Cars)
+            {
+                <tr class="cartr">
+                    <td style="width: 200px;">
+                        <img src="@Model.Fotos[car.Id].Path" class="carphotosmall">
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <img src="@car.Model.Brand.Logo" class="brandlogo">@car.Model.Brand.Name
+                        </div>
+                    </td>
+                    <td>@car.Model</td>
+                    <td>@car.Year</td>
+                    <td>@car.Distance</td>
+                    <td>
+                        <div class="color-item">
+                            <div class="color-circle" style="background-color: @car.Color.Name;">
+                            </div>
+                            <span>@car.Color.Name</span>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+            
+
         </table>
 
         <section id="paginationBlock">
+            @if (Model.PageViewModel.HasPreviousPage)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-brandIds="@(string.Join(",", Model.Brands.Select(b => b.Id)))" class="pagination-item">
+                    @(Model.PageViewModel.PageNumber - 1)
+                </a>
+            }
+            <span class="pagination-item">@Model.PageViewModel.PageNumber</span>
+            @if (Model.PageViewModel.HasNextPage)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-brandIds="@(string.Join(",", Model.Brands.Select(b => b.Id)))" class="pagination-item">
+                    @(Model.PageViewModel.PageNumber + 1)
+                </a>
+            }
         </section>
 
     </div>
