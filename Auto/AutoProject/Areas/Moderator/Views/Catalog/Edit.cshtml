@@ -19,14 +19,14 @@
 
 <div id="photoListContainer">
     <div id="photoList">
-        @foreach (Foto foto in Model.Fotos)
+        @foreach (Photo photo in Model.Photos)
         {
             <div>
-                <div class="photo" data-image="@foto.Path"><img src="@foto.Path"></div>
+                <div class="photo" data-image="@photo.Path"><img src="@photo.Path"></div>
                 <nav>
-                    <form asp-action="DeleteFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
+                    <form asp-action="DeletePhoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
                         <nav>
-                            <input type="hidden" name="id" value="@foto.Id" />
+                            <input type="hidden" name="id" value="@photo.Id" />
                             <input type="submit" value="Delete" />
                         </nav>
                     </form>
@@ -35,7 +35,7 @@
         }
 
         <div>
-            <form asp-action="AddFoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
+            <form asp-action="AddPhoto" asp-controller="Catalog" method="post" enctype="multipart/form-data">
                 <input asp-for="@Model.Id" type="hidden" value="@Model.Id">
                 <input type="file" name="uploadedFile" accept="image/*">
                 <input type="submit" value="Upload" />

@@ -62,9 +62,9 @@ namespace Front.Areas.Cars.Controllers
                 var brands = await _carsService.GetAllBrandsAsync();
                 var models = await _carsService.GetSelectedBrandModelsAsync(car.Model.Brand.Id);
                 var colors = await _carsService.GetAllColorsAsync();
-                var fotos = await _carsService.GetCarFotosAsync(id);
+                var photos = await _carsService.GetCarPhotosAsync(id);
 
-                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance, Id = id, Fotos = fotos });
+                return View(new EditCarViewModel() { AllBrands = brands, AllModels = models, AllColors = colors, BrandId = car.Model.Brand.Id, ModelId = car.Model.Id, ColorId = car.Color.Id, Year = car.Year, Distance = car.Distance, Id = id, Photos = photos });
             }
             return NotFound();
         }
@@ -106,45 +106,45 @@ namespace Front.Areas.Cars.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFoto(IFormFile uploadedFile, int id)
+        public async Task<IActionResult> AddPhoto(IFormFile uploadedFile, int id)
         {
             if (uploadedFile != null)
             {
-                string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", id.ToString());
+                string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "photos", id.ToString());
 
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
 
-                var fotoGuid = Guid.NewGuid().ToString();
+                var photoGuid = Guid.NewGuid().ToString();
                 var extension = Path.GetExtension(uploadedFile.FileName).ToLowerInvariant();
 
-                string path = $"/fotos/{id}/{fotoGuid}{extension}";
+                string path = $"/photos/{id}/{photoGuid}{extension}";
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                Foto foto = new Foto() { Name = $"{fotoGuid}{extension}", Path = path, CarId = id };
+                Photo photo = new Photo() { Name = $"{photoGuid}{extension}", Path = path, CarId = id };
 
-                await _carsService.CreateFotoAsync(foto);
+                await _carsService.CreatePhotoAsync(photo);
             }
 
             return RedirectToAction("Edit", "Catalog", new { id = id });
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteFoto(int id)
+        public async Task<IActionResult> DeletePhoto(int id)
         {
-            var foto = await _carsService.GetFotoByIdAsync(id);
-            var carId = await _carsService.GetCarIdByFotoIdAsync(id);
-            await _carsService.DeleteFotoAsync(id);
+            var photo = await _carsService.GetPhotoByIdAsync(id);
+            var carId = await _carsService.GetCarIdByPhotoIdAsync(id);
+            await _carsService.DeletePhotoAsync(id);
 
-            string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "fotos", carId.ToString());
+            string directoryPath = Path.Combine(_appEnvironment.WebRootPath, "photos", carId.ToString());
 
             if (Directory.Exists(directoryPath))
             {
-                string path = Path.Combine(_appEnvironment.WebRootPath, "fotos", carId.ToString(), foto.Name);
+                string path = Path.Combine(_appEnvironment.WebRootPath, "photos", carId.ToString(), photo.Name);
 
                 if (_fileSystem.File.Exists(path))
                 {

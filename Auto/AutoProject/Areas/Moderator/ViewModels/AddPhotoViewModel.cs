@@ -2,15 +2,15 @@
 
 namespace Front.Areas.Moderator.ViewModels
 {
-	public class AddFotoViewModel
+	public class AddPhotoViewModel
     {
         public int CarId { get; set; }
         public string? Name { get; set; }
-        public IEnumerable<Foto> Fotos { get; set; }
+        public IEnumerable<Photo> Photos { get; set; }
 
-        public AddFotoViewModel()
+        public AddPhotoViewModel()
         {
-            Fotos = new List<Foto>();
+            Photos = new List<Photo>();
         }
     }
 }

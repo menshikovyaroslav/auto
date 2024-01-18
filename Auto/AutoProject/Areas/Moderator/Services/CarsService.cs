@@ -56,9 +56,9 @@ namespace Front.Areas.Admin.Services
 			await _db.SaveChangesAsync();
 		}
 
-		public async Task CreateFotoAsync(Foto foto)
+		public async Task CreatePhotoAsync(Photo photo)
 		{
-			_db.Fotos.Add(foto);
+			_db.Photos.Add(photo);
 			await _db.SaveChangesAsync();
 		}
 
@@ -89,10 +89,10 @@ namespace Front.Areas.Admin.Services
 			await _db.SaveChangesAsync();
 		}
 
-        public async Task DeleteFotoAsync(int id)
+        public async Task DeletePhotoAsync(int id)
         {
-            var foto = await _db.Fotos.FirstOrDefaultAsync(f => f.Id == id);
-            _db.Fotos.Remove(foto);
+            var photo = await _db.Photos.FirstOrDefaultAsync(f => f.Id == id);
+            _db.Photos.Remove(photo);
             await _db.SaveChangesAsync();
         }
 
@@ -199,17 +199,17 @@ namespace Front.Areas.Admin.Services
 				.SingleOrDefaultAsync(b => b.Id == id);
 		}
 
-        public async Task<IEnumerable<Foto>> GetCarFotosAsync(int carId)
+        public async Task<IEnumerable<Photo>> GetCarPhotosAsync(int carId)
         {
-			return await _db.Fotos
+			return await _db.Photos
 				.Where(f => f.CarId == carId)
 				.ToListAsync();
         }
 
-        public async Task<int> GetCarIdByFotoIdAsync(int fotoId)
+        public async Task<int> GetCarIdByPhotoIdAsync(int photoId)
         {
-            Foto foto = await _db.Fotos.SingleOrDefaultAsync(f => f.Id == fotoId);
-            return foto != null ? foto.CarId : 0;
+            Photo photo = await _db.Photos.SingleOrDefaultAsync(f => f.Id == photoId);
+            return photo != null ? photo.CarId : 0;
         }
 
         public async Task<Color> GetColorAsync(int id)
@@ -217,9 +217,9 @@ namespace Front.Areas.Admin.Services
 			return await _db.Colors.SingleOrDefaultAsync(c => c.Id == id);
 		}
 
-        public async Task<Foto> GetFotoByIdAsync(int fotoId)
+        public async Task<Photo> GetPhotoByIdAsync(int photoId)
         {
-            return await _db.Fotos.SingleOrDefaultAsync(f => f.Id == fotoId);
+            return await _db.Photos.SingleOrDefaultAsync(f => f.Id == photoId);
         }
 
         public async Task<Model> GetModelAsync(int id)
@@ -238,18 +238,18 @@ namespace Front.Areas.Admin.Services
 			return models;
         }
 
-        public async Task<Dictionary<int, Foto>> GetCarsMainFotosAsync(int[] carIds)
+        public async Task<Dictionary<int, Photo>> GetCarsMainPhotosAsync(int[] carIds)
         {
-            var result = new Dictionary<int, Foto>();
-            var fotos = await _db.Fotos
+            var result = new Dictionary<int, Photo>();
+            var photos = await _db.Photos
                                     .Where(f => carIds.Contains(f.CarId))
                                     .GroupBy(f => f.CarId)
                                     .Select(group => group.OrderBy(f => f.Id).First())
                                     .ToListAsync();
 
-            foreach (var foto in fotos)
+            foreach (var photo in photos)
             {
-                result[foto.CarId] = foto;
+                result[photo.CarId] = photo;
             }
 
             return result;

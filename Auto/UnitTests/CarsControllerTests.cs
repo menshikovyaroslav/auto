@@ -19,7 +19,7 @@ namespace UnitTests
             var carsService = Substitute.For<ICarsService>();
             carsService.GetAllBrandsAsync().Returns(GetImitatedBrands());
             carsService.GetFilteredCarsAsync(Arg.Any<string[]>(), 1).Returns(GetFilteredCars());
-            carsService.GetCarsMainFotosAsync(Arg.Any<int[]>()).Returns(GetCarsMainFotos());
+            carsService.GetCarsMainPhotosAsync(Arg.Any<int[]>()).Returns(GetCarsMainPhotos());
 
             var controller = new CarsController(carsService);
 
@@ -42,9 +42,9 @@ namespace UnitTests
             return Substitute.For<CarsPaginationViewModel>();
         }
 
-        public Dictionary<int, Foto> GetCarsMainFotos()
+        public Dictionary<int, Photo> GetCarsMainPhotos()
         {
-            return Substitute.For<Dictionary<int, Foto>>();
+            return Substitute.For<Dictionary<int, Photo>>();
         }
     }
 }

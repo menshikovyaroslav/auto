@@ -20,7 +20,7 @@
                     $.each(data.cars, function (carIndex, car) {
                         var newRow = $("<tr>").addClass("cartr");
 
-                        var carphoto = data.fotos[car.id]?.path;
+                        var carphoto = data.photos[car.id]?.path;
                         $("<td>").css("width", "200px").append($("<img>").attr("src", carphoto).addClass("carphotosmall")).appendTo(newRow);
 
                         var brandLogo = car.model.brand.logo;

@@ -34,11 +34,11 @@ namespace Front.Areas.Admin.Services
         public Task<Car> GetCarAsync(int id);
         public Task EditCarAsync(Car car);
 
-        public Task CreateFotoAsync(Foto foto);
-        public Task<IEnumerable<Foto>> GetCarFotosAsync(int carId);
-        public Task DeleteFotoAsync(int id);
-        public Task<int> GetCarIdByFotoIdAsync(int fotoId);
-        public Task<Foto> GetFotoByIdAsync(int fotoId);
-        public Task<Dictionary<int, Foto>> GetCarsMainFotosAsync(int[] carIds);
+        public Task CreatePhotoAsync(Photo photo);
+        public Task<IEnumerable<Photo>> GetCarPhotosAsync(int carId);
+        public Task DeletePhotoAsync(int id);
+        public Task<int> GetCarIdByPhotoIdAsync(int photoId);
+        public Task<Photo> GetPhotoByIdAsync(int photoId);
+        public Task<Dictionary<int, Photo>> GetCarsMainPhotosAsync(int[] carIds);
     }
 }

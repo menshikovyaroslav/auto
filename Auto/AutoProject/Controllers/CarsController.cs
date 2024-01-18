@@ -27,7 +27,7 @@ namespace Front.Controllers
             {
                 IEnumerable<Car> cars;
                 IEnumerable<Brand> brands;
-                Dictionary<int, Foto> photos;
+                Dictionary<int, Photo> photos;
 
                 brands = await _carsService.GetAllBrandsAsync();
 
@@ -39,9 +39,9 @@ namespace Front.Controllers
                 var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(convertedArray, page);
                 int[] carIds = carsPaginationViewModel.Cars.Select(car => car.Id).ToArray();
 
-                photos = await _carsService.GetCarsMainFotosAsync(carIds);
+                photos = await _carsService.GetCarsMainPhotosAsync(carIds);
 
-                var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Fotos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
+                var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Photos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
                 return View(model);
             }
         }
@@ -51,16 +51,16 @@ namespace Front.Controllers
         {
             IEnumerable<Car> cars;
             IEnumerable<Brand> brands;
-            Dictionary<int, Foto> photos;
+            Dictionary<int, Photo> photos;
 
             brands = await _carsService.GetAllBrandsAsync();
 
             var carsPaginationViewModel = _carsService.GetFilteredCarsAsync(brandIds, 1);
             int[] carIds = carsPaginationViewModel.Cars.Select(car => car.Id).ToArray();
 
-            photos = await _carsService.GetCarsMainFotosAsync(carIds);
+            photos = await _carsService.GetCarsMainPhotosAsync(carIds);
 
-            var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Fotos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
+            var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Photos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
             return model;
         }
     }

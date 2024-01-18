@@ -10,7 +10,7 @@ namespace Front.Areas.Admin.Models
         public DbSet<Model> Models { get; private set; }
         public DbSet<Car> Cars { get; private set; }
         public DbSet<Color> Colors { get; private set; }
-        public DbSet<Foto> Fotos { get; private set; }
+        public DbSet<Photo> Photos { get; private set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
 		{

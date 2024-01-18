@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Front.Areas.Cars.Models
 {
-    [Table("Fotos")]
-    public class Foto
+    [Table("Photos")]
+    public class Photo
     {
         [Key]
         public int Id { get; set; }
