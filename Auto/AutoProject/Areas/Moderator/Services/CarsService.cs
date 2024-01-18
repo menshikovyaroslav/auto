@@ -150,9 +150,6 @@ namespace Front.Areas.Admin.Services
 
             List<Car> filteredCars = new List<Car>();
 
-            // 1
-            // [1,4,2,7]
-
             if (searchBrandIds != null && searchBrandIds.Length > 0)
 			{
                 var brandIds = searchBrandIds.Select(s => s.ToInt()).ToList();

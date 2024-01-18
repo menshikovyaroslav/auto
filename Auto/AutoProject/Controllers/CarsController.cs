@@ -44,8 +44,6 @@ namespace Front.Controllers
                 var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Fotos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
                 return View(model);
             }
-
-
         }
 
         [HttpPost]
