@@ -2,4 +2,29 @@
     ViewBag.Title = "About";
 }
 
-<h2>About our company</h2>
+<h2>About this project</h2>
+
+<table class="carstable">
+    <tr>
+        <th>Documentation</th>
+    </tr>
+
+    <tr class="cartr">
+        <td style="width: 200px;">
+            <a asp-action="DocumentationUser" class="pagination-item">For User</a>
+        </td>
+    </tr>
+
+    <tr class="cartr">
+        <td style="width: 200px;">
+            <a asp-action="DocumentationAdmin" class="pagination-item">For Admin</a>
+        </td>
+    </tr>
+
+    <tr class="cartr">
+        <td style="width: 200px;">
+            <a asp-action="DocumentationModerator" class="pagination-item">For Moderator</a>
+        </td>
+    </tr>
+
+</table>

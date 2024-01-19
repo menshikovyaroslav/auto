@@ -15,5 +15,23 @@ namespace Front.Controllers
         {
             return View("About");
         }
+
+        [HttpGet]
+        public IActionResult DocumentationUser()
+        {
+            return View("DocumentationUser");
+        }
+
+        [HttpGet]
+        public IActionResult DocumentationAdmin()
+        {
+            return View("DocumentationAdmin");
+        }
+
+        [HttpGet]
+        public IActionResult DocumentationModerator()
+        {
+            return View("DocumentationModerator");
+        }
     }
 }
