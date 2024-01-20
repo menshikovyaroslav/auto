@@ -80,11 +80,6 @@ input[type="button"] {
     width: 40px;
 }
 
-.carphotosmall {
-    display: inline-block;
-    width: 200px;
-}
-
 .color-item {
     display: flex;
     align-items: center;

@@ -21,7 +21,7 @@
                         var newRow = $("<tr>").addClass("cartr");
 
                         var carphoto = data.photos[car.id]?.path;
-                        $("<td>").css("width", "200px").append($("<img>").attr("src", carphoto).addClass("carphotosmall")).appendTo(newRow);
+                        $("<td>").css("max-width", "100px").append($("<img>").attr("data-fancybox", "gallery").attr("src", carphoto).addClass("carphotosmall")).appendTo(newRow);
 
                         var brandLogo = car.model.brand.logo;
                         var brandContainer = $("<div>").css({
@@ -99,6 +99,16 @@
                 droppedItemsIds.splice(index, 1);
                 updateCarsContainer();
             }
+        }
+    });
+
+    $("[data-fancybox]").fancybox({
+        afterLoad: function (instance, current) {
+            current.$slide.on("onReset", function () {
+                current.$content
+                    .removeAttr('style')
+                    .removeClass('fancybox-content')
+            });
         }
     });
 });

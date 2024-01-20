@@ -13,6 +13,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="@Url.Content("~/js/cars/index.js")" asp-append-version="true" type="text/javascript"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
 <script>
     var carsUrl = '@Url.Action("Index", "Cars")';
 </script>
@@ -53,8 +56,8 @@
             @foreach (var car in Model.Cars)
             {
                 <tr class="cartr">
-                    <td style="width: 200px;">
-                        <img src="@Model.Photos[car.Id].Path" class="carphotosmall">
+                    <td style="max-width: 100px;">
+                        <img src="@Model.Photos[car.Id].Path" data-fancybox="gallery" class="carphotosmall">
                     </td>
                     <td>
                         <div style="display: flex; align-items: center; justify-content: center;">

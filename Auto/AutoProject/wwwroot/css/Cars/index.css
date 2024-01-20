@@ -80,3 +80,9 @@ footer {
         cursor: not-allowed;
         pointer-events: none;
     }
+
+.carphotosmall {
+    width: 100%;
+    height: auto;
+    display: block;
+}
