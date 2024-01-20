@@ -13,7 +13,7 @@ namespace UnitTests
     public class CarsControllerTests
     {
         [Fact]
-        public async Task IndexReturnsAllOrdersAndCorrectTypes()
+        public async Task IndexReturnsAllBrandsAndCorrectTypes()
         {
             // Arrange:
             var carsService = Substitute.For<ICarsService>();
