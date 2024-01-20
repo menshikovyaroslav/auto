@@ -102,13 +102,10 @@
         }
     });
 
-    $("[data-fancybox]").fancybox({
-        afterLoad: function (instance, current) {
-            current.$slide.on("onReset", function () {
-                current.$content
-                    .removeAttr('style')
-                    .removeClass('fancybox-content')
-            });
-        }
+    $('.photo').on('click', function () {
+        var imagePath = $(this).data('image');
+        $('#imageModal img').attr('src', imagePath);
+        $('#imageModal').modal('show');
     });
+
 });
