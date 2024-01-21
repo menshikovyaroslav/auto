@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoProject", "AutoProject\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{52637C38-E260-46C5-A13A-F109DF2D171D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularAdmin", "AngularAdmin\AngularAdmin.csproj", "{9C46E71A-ED01-4E7A-BD04-CCED45135502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularAdmin", "AngularAdmin\AngularAdmin.csproj", "{9C46E71A-ED01-4E7A-BD04-CCED45135502}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{85D6E3C9-75EC-44E9-9E9A-DF9216888400}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
