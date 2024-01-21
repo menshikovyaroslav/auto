@@ -41,7 +41,7 @@ namespace Front.Controllers
 
                 photos = await _carsService.GetCarsMainPhotosAsync(carIds);
 
-                var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Photos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
+                var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, PageViewModel = carsPaginationViewModel.PageViewModel };
                 return View(model);
             }
         }
@@ -60,7 +60,7 @@ namespace Front.Controllers
 
             photos = await _carsService.GetCarsMainPhotosAsync(carIds);
 
-            var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, Photos = photos, PageViewModel = carsPaginationViewModel.PageViewModel };
+            var model = new HomeViewModel() { Brands = brands, Cars = carsPaginationViewModel.Cars, PageViewModel = carsPaginationViewModel.PageViewModel };
             return model;
         }
     }

@@ -58,8 +58,8 @@ namespace Front.Areas.Admin.Services
 
 		public async Task CreatePhotoAsync(Photo photo)
 		{
-			_db.Photos.Add(photo);
-			await _db.SaveChangesAsync();
+            _db.Photos.Add(photo);
+            await _db.SaveChangesAsync();
 		}
 
 		public async Task CreateModelAsync(Model model)
@@ -130,7 +130,6 @@ namespace Front.Areas.Admin.Services
 		public async Task<IEnumerable<Brand>> GetAllBrandsAsync()
 		{
 			return await _db.Brands
-				//.Include(b => b.Models)
 				.OrderBy(b => b.Name)
 				.ToListAsync();
 		}
@@ -141,7 +140,8 @@ namespace Front.Areas.Admin.Services
 				.Include(m => m.Model)
 				.Include(c => c.Color)
 				.Include(m => m.Model.Brand)
-				.ToListAsync();
+                .Include(c => c.Photos)
+                .ToListAsync();
 		}
 
         public CarsPaginationViewModel GetFilteredCarsAsync(string[] searchBrandIds, int page)
@@ -157,6 +157,7 @@ namespace Front.Areas.Admin.Services
                     .Include(c => c.Model)
                     .Include(c => c.Model.Brand)
                     .Include(c => c.Color)
+                    .Include(c => c.Photos)
                     .Where(c => brandIds.Contains(c.Model.Brand.Id));
 
                 filteredCars.AddRange(carsInCondition);

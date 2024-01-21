@@ -13,5 +13,11 @@ namespace Front.Areas.Cars.Models
         public int? Distance { get; set; }
         public Color Color { get; set; }
         public string? AdditionalInfo { get; set; }
+        public List<Photo> Photos { get; set; }
+
+        public Car()
+        {
+            Photos = new List<Photo>();
+        }
     }
 }

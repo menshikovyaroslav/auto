@@ -7,6 +7,26 @@
     ViewBag.Title = "Home";
 }
 
+<script>
+    var carPhotos = {
+    @foreach (var car in Model.Cars)
+    {
+        <text>
+            '@car.Id': [
+            @foreach (var photo in car.Photos)
+            {
+                <text>'@photo.Path', </text>
+            }
+                            ],
+        </text>
+    }
+            }
+</script>
+
+<script>
+    var carsUrl = '@Url.Action("Index", "Cars")';
+</script>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="~/css/cars/index.css" asp-append-version="true" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -14,9 +34,7 @@
 <script src="@Url.Content("~/js/cars/index.js")" asp-append-version="true" type="text/javascript"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    var carsUrl = '@Url.Action("Index", "Cars")';
-</script>
+
 
 @if (!string.IsNullOrEmpty(error))
 {
@@ -55,10 +73,10 @@
             {
                 <tr class="cartr">
                     <td style="max-width: 100px;">
-                        <div class="photo" data-image="@Model.Photos[car.Id].Path">
-                            <img src="@Model.Photos[car.Id].Path" class="carphotosmall">
+                        <div class="photo" data-car-id="@car.Id" data-image="@car.Photos[0].Path">
+                            <img src="@car.Photos[0].Path" class="carphotosmall">
                         </div>
-                        
+
                     </td>
                     <td>
                         <div style="display: flex; align-items: center; justify-content: center;">
@@ -77,7 +95,7 @@
                     </td>
                 </tr>
             }
-        
+
 
         </table>
 
@@ -111,6 +129,10 @@
             </div>
             <div class="modal-body">
                 <img src="" alt="Enlarged Photo" class="img-fluid">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="prevButton">Previous</button>
+                <button type="button" class="btn btn-secondary" id="nextButton">Next</button>
             </div>
         </div>
     </div>

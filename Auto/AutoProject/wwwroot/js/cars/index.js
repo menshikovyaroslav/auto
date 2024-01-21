@@ -1,4 +1,8 @@
-﻿$(document).ready(function () {
+﻿var currentIndex = 0;
+var cars = null;
+var currentcar = null;
+
+$(document).ready(function () {
 
     var page = 1;
 
@@ -17,11 +21,17 @@
             success: function (data) {
                 if (data && data.cars && Array.isArray(data.cars)) {
                     $(".carscontainer table tbody tr.cartr").remove();
+
+                    cars = data.cars;
+
                     $.each(data.cars, function (carIndex, car) {
                         var newRow = $("<tr>").addClass("cartr");
 
-                        var carphoto = data.photos[car.id]?.path;
-                        $("<td>").css("max-width", "100px").append($("<img>").attr("data-fancybox", "gallery").attr("src", carphoto).addClass("carphotosmall")).appendTo(newRow);
+                        var carphoto = car.photos[0].path;
+                        var carid = car.id;
+                        $("<td>").css("max-width", "100px").append($("<div>").attr("data-car-id", carid).attr("data-image", carphoto).addClass("photo").append($("<img>").attr("src", carphoto).addClass("carphotosmall"))).appendTo(newRow);
+
+
 
                         var brandLogo = car.model.brand.logo;
                         var brandContainer = $("<div>").css({
@@ -102,10 +112,34 @@
         }
     });
 
-    $('.photo').on('click', function () {
-        var imagePath = $(this).data('image');
+    $('#nextButton').on('click', function () {
+        currentIndex = (currentIndex + 1) % currentcar.photos.length;
+
+        var imagePath = currentcar.photos[currentIndex].path;
         $('#imageModal img').attr('src', imagePath);
-        $('#imageModal').modal('show');
     });
+
+    $('#prevButton').on('click', function () {
+        currentIndex = (currentIndex - 1 + currentcar.photos.length) % currentcar.photos.length;
+
+        var imagePath = currentcar.photos[currentIndex].path;
+        $('#imageModal img').attr('src', imagePath);
+    });
+
+});
+
+
+$(document).on('click', '.photo', function () {
+
+    var carId = $(this).data('car-id');
+
+    currentcar = cars.find(function (car) {
+        return car.id === carId;
+    });
+
+    var imagePath = currentcar.photos[currentIndex].path;
+    $('#imageModal img').attr('src', imagePath);
+
+    $('#imageModal').modal('show');
 
 });
